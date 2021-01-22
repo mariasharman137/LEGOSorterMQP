@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import imageio
 import matplotlib.pyplot as plt
+
 class Resizer:
     #This code will resize the image
     #adapted to code from Python 3 for Machine Learning by Oswald Campesato
@@ -12,6 +13,12 @@ class Resizer:
     #channels is one for black and white, and three for RGB
 
     def resizeShow(imageLocation,channels,size):
+        """
+
+        :param channels: amount of channels, 3 for rgb and 1 for bw
+        :param size: width and height of the image
+        :return: popup of image and int[][][](?)
+        """
         #Resizes image and shows the original and resized images
         inp = tf.keras.layers.Input(shape=(None, None, channels))
         out = tf.keras.layers.Lambda(lambda image: tf.image.resize(image, (size, size)))(inp)
@@ -30,7 +37,13 @@ class Resizer:
 
         plt.show()
         return out
+
     def resize(imageLocation,channels,size):
+        """
+        :param channels: amount of channels, 3 for rgb and 1 for bw
+        :param size: width and height of the image
+        :return: int[][][](?)
+        """
        #Resizes image to the desired size
         inp = tf.keras.layers.Input(shape=(None, None, 3))
         out = tf.keras.layers.Lambda(lambda image: tf.image.resize(imageLocation, (128, 128)))(inp)
