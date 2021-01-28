@@ -1,5 +1,4 @@
 class ColorDB:
-    import ColorData
     # this file contains all of the colors available
     # List of color names and values
     # list of RGB values can be found on partdata.xlsx
