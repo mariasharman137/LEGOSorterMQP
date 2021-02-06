@@ -1,17 +1,18 @@
-import PIL
+from PIL import Image
 import numpy as np
 
 
 class PhotoImporter:
 
 
-    def photoToArray(photo_name):
+    def photoToArray(photo_path):
         """
 
         :param photo_name: String containing the location of the photo
         :return NumPy array containing picture values
         """
-        return np.asarray(photo_name)
+        img = Image.open(photo_path)
+        return np.asarray(img)
 
     def resizeArray(array, size):
         """

@@ -1,13 +1,11 @@
-import PhotoImporter
-
-import PhotoImporter as PhI
+from PhotoImporter import PhotoImporter as PhI
 
 
 class TestFunctions:
 
     # PhotoImporter.py
     def testphotoToArray():
-        testimg = PhI.photoToArray("testImage.jpg")
+        testimg= PhI.photoToArray("testImage.jpg")
         print("Image tested")
         for r in testimg:
             for c in r:
