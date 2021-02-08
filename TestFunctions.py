@@ -63,8 +63,16 @@ class TestFunctions:
             for c in r:
                 print(c, end=" ")
             print()
+        assert tgs[0][0] == 0 and tgs[3][3] == 1
 
-        assert tgs[0][0] == 0 and tgs [3][3] == 1
+
+    def testPrint():
+        testimg = PhI.photoToArray("ColorFiles/BlankBlue.png")
+        PhI.printArray(testimg,"GSTest")
+        assert np.allclose((PhI.photoToArray("ColorFiles/BlankBlue.png")),(PhI.photoToArray("GSTest.png")))
+
+
+
 
     if __name__ == "__main__":
         testphotoToArray()
@@ -76,4 +84,5 @@ class TestFunctions:
         testDarkGreyLego()
         testBlankBlue()
         testGreyscale()
+        testPrint()
         print("Everything passed")

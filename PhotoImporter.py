@@ -24,6 +24,14 @@ class PhotoImporter:
             return np.resize(array, (size, size))
         else:
             print("image too small")
+    def printArray(array,name):
+        """
+        :param array: any numpy array
+        :param name: the desired filename
+        :rtype: none, puts saved image in directory
+        """
+        im = Image.fromarray(array)
+        im.save(name +".png")
 
 
 
