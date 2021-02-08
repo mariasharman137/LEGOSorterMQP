@@ -1,7 +1,8 @@
 from PhotoImporter import PhotoImporter as PhI
 import ColorDB
 from ColorChoice import ColorChoice as CC
-
+from Greyscale import Greyscale
+import numpy as np
 
 class TestFunctions:
 
@@ -55,6 +56,16 @@ class TestFunctions:
         print(CC.chooseColor(testimg))
         assert (CC.chooseColor(testimg)) == "Blue"
 
+    def testGreyscale():
+        testimg = PhI.photoToArray("ColorFiles/BlankBlue.png")
+        tgs = Greyscale.ArraytoGreyscale(testimg)
+        for r in tgs:
+            for c in r:
+                print(c, end=" ")
+            print()
+
+        assert tgs[0][0] == 0 and tgs [3][3] == 1
+
     if __name__ == "__main__":
         testphotoToArray()
         testBlue()
@@ -64,4 +75,5 @@ class TestFunctions:
         testYellow()
         testDarkGreyLego()
         testBlankBlue()
+        testGreyscale()
         print("Everything passed")
