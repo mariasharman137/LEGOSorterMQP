@@ -25,8 +25,11 @@ class ColorChoice:
 
 
                     counter += 1
-        for k in range(0,len(averageColor)):
-            averageColor[k] /= counter
+        if counter == 0:
+            averageColor=[0, 0, 0]
+        else:
+            for k in range(0,len(averageColor)):
+                averageColor[k] /= counter
 
         cdb = ColorDB()
 

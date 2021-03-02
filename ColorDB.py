@@ -14,14 +14,16 @@ class ColorDB:
                             ["Yellow", [242, 205, 55]],
                             ["Black", [5, 19, 29]]]
 
-    def getColor(self,average):
+    def getColor(self, average):
         """
         :return: String, Name of the color
         :param average: int[], an r,g,b, value
         """
         score = 1000
         color = ""
-        for i in range(0,len(self.ColorDBvals)):
+        if average[0] == 0 and average[1] == 0 and average[2] == 0:
+            return "Blank"
+        for i in range(0, len(self.ColorDBvals)):
             if self.getScore(average, self.ColorDBvals[i][1]) < score:
                 color = self.ColorDBvals[i][0]
                 score = self.getScore(average, self.ColorDBvals[i][1])
@@ -34,6 +36,6 @@ class ColorDB:
         :return: int, score for the color being tested
         """
         score = 0
-        for j in range(0,len(vals)):
+        for j in range(0, len(vals)):
             score += abs(average[j] - vals[j])
         return score
