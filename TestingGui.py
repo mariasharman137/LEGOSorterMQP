@@ -8,18 +8,20 @@ from ColorChoice import ColorChoice as CC
 window = tk.Tk()
 filename = "ColorFiles/Default.png"
 resulting_color = ""
-
+load = Image.open(filename)
+render = ImageTk.PhotoImage(load)
 
 def browseFiles():
     global filename
+    global window
+    global render
     filename = filedialog.askopenfilename(initialdir="/", title="Select a File",
                                           filetypes=[("all files", "*.*")])
     label_file_explorer.configure(text="File Opened: " + filename)
     load = Image.open(filename)
     render = ImageTk.PhotoImage(load)
-    img = tk.Label(image=render)
-    img.image = render
-    img.grid(column=1, row=5)
+    img.configure(image = render)
+
 
 
 def getColor():
@@ -44,6 +46,10 @@ button_exit = tk.Button(window, text="Exit", command=exit)
 button_color = tk.Button(window, text="Obtain Color", command=getColor)
 
 imageColor = tk.Label(text="Hello, Tkinter")
+
+img = tk.Label(image=render)
+img.image = render
+img.grid(column=1, row=5)
 
 imageColor.grid(column=1, row=1)
 
