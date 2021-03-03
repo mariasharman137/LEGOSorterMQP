@@ -18,6 +18,8 @@ def browseFiles():
     global filename
     global window
     global render
+    clearCImg()
+    clearGImg()
     filename = filedialog.askopenfilename(initialdir="/", title="Select a File",
                                           filetypes=[("all files", "*.*")])
     label_file_explorer.configure(text="File Opened: " + filename)
