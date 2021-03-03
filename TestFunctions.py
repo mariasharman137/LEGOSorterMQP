@@ -63,7 +63,7 @@ class TestFunctions:
             for c in r:
                 print(c, end=" ")
             print()
-        assert tgs[0][0] == 0 and tgs[3][3] == 1
+        assert tgs[0][0] == 0 and tgs[3][3] == 239
 
 
     def testPrint():

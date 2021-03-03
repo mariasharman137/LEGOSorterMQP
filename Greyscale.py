@@ -16,5 +16,5 @@ class Greyscale:
         for i in range(0, rows):
             for j in range(0, cols):
                 if not (array[i][j][0] == 0 and array[i][j][1] == 0 and array[i][j][2] == 0):
-                    gs[i][j] = 1
+                    gs[i][j] = (int(int(int(array[i][j][0])) + (int(array[i][j][1])) + (int(array[i][j][2])) / 3))
         return gs
