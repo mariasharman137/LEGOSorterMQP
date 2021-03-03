@@ -5,6 +5,7 @@ import numpy as np
 from PhotoImporter import PhotoImporter as PhI
 from ColorChoice import ColorChoice as CC
 from Greyscale import Greyscale
+from tkinter import font
 
 window = tk.Tk()
 filename = "ColorFiles/Default.png"
@@ -12,6 +13,7 @@ resulting_color = "light grey"
 load = Image.open(filename)
 render = ImageTk.PhotoImage(load)
 gRender = ""
+myFont = font.Font(family = 'Helvetica', size = 20)
 
 
 def browseFiles():
@@ -79,33 +81,33 @@ window.title('Testing Gui')
 window.geometry("1900x1080")
 window.config(background="white")
 
-label_file_explorer = tk.Label(window, text="The color will appear here once calculated", width=135, height=4,)
+label_file_explorer = tk.Label(window, text="The color will appear here once calculated", width=65, height = 1, font = myFont)
 
-button_explore = tk.Button(window, text="Browse Files", command=browseFiles,width=135, height=4)
+button_explore = tk.Button(window, text="Browse Files", command=browseFiles,width=65, height = 1, font = myFont)
 
-button_exit = tk.Button(window, text="Exit", command=exit,width=135, height=4, bg = "red")
+button_exit = tk.Button(window, text="Exit", command=exit,width=65, height = 1, bg = "red", font = myFont)
 
-button_color = tk.Button(window, text="Obtain Color", command=getColor, width=135, height=4)
+button_color = tk.Button(window, text="Obtain Color", command=getColor, width=65, height = 1, font = myFont)
 
-button_show_greyscale = tk.Button(window, text="Press to show greyscale image", command=showGreyscale, width=135, height=4)
+button_show_greyscale = tk.Button(window, text="Press to show Greyscale image", command=showGreyscale, width=65, height = 1, font = myFont)
 
-button_clear_img = tk.Button(window, text="clear color img", command=clearCImg, width=135, height=4, bg = 'orange')
+button_clear_img = tk.Button(window, text="Clear color img", command=clearCImg, width=65, height = 1, bg = 'orange', font = myFont)
 
-button_clear_g_img = tk.Button(window, text="clear greyscale img", command=clearGImg, width=135, height=4, bg = "orange")
+button_clear_g_img = tk.Button(window, text="Clear greyscale img", command=clearGImg, width=65, height = 1, bg = "orange", font = myFont)
 
-imageColor = tk.Label(text="Welcome to Testing GUI", width = 135, height = 4)
+imageColor = tk.Label(text="Welcome to Testing GUI", width = 65, height = 1, font = myFont)
 
 imageColor.grid(column=1, row=1)
 
 label_file_explorer.grid(column=1, row=2)
 
-button_explore.grid(column=1, row=3)
+button_explore.grid(column=2, row=2)
 
 button_exit.grid(column=2, row=1)
 
 button_color.grid(column=1, row=4)
 
-button_clear_img.grid(column = 2, row = 2)
+button_clear_img.grid(column = 1, row = 3)
 
 button_clear_g_img.grid(column = 2, row = 3)
 
