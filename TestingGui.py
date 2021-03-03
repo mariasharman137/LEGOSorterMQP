@@ -8,7 +8,7 @@ from Greyscale import Greyscale
 
 window = tk.Tk()
 filename = "ColorFiles/Default.png"
-resulting_color = ""
+resulting_color = "light grey"
 load = Image.open(filename)
 render = ImageTk.PhotoImage(load)
 gRender = ""
@@ -34,6 +34,7 @@ def getColor():
     resulting_color = (str(CC.chooseColor(testimg)))
     imageColor.configure(text=resulting_color)
     print(resulting_color)
+    label_file_explorer.config(bg=resulting_color)
     window.mainloop()
 
 
@@ -55,10 +56,11 @@ def showGreyscale():
     gImage = Image.fromarray(tgs)
     gRender = ImageTk.PhotoImage(gImage)
     gimg.configure(image=gRender)
-    for r in tgs:
-        for c in r:
-            print(c, end=" ")
-        print()
+    #uncomment below to get pixel values in terminal
+    #for r in tgs:
+        #for c in r:
+            #print(c, end=" ")
+        #print()
 
 
 def clearCImg():
@@ -77,7 +79,7 @@ window.title('Testing Gui')
 window.geometry("1900x1080")
 window.config(background="white")
 
-label_file_explorer = tk.Label(window, text="The color will appear here once calculated", width=135, height=4, fg="blue")
+label_file_explorer = tk.Label(window, text="The color will appear here once calculated", width=135, height=4,)
 
 button_explore = tk.Button(window, text="Browse Files", command=browseFiles,width=135, height=4)
 
