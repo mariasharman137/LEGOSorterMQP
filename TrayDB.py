@@ -2,6 +2,7 @@ import PartDatabase
 
 
 class TrayDB:
+    #Tray 0 is the top tray
     def __init__(self):
         trays = []
 
@@ -31,7 +32,7 @@ class TrayDB:
             self.trays[i].addHeight(x0 + x1 * i)
 
     def placePart(self, name):
-        """ This function finds where there is room for the part, starting from the bottom tray and moving up
+        """ This function finds where there is room for the part, starting from the top tray and moving down
 
         :param name: String, the name of the part being placed
         :return: none

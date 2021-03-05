@@ -555,3 +555,4 @@ venv/Scripts/python.exe
 venv/Scripts/pythonw.exe
 venv/Lib/site-packages/_distutils_hack/override.py
 venv/Lib/site-packages/pip-20.3.dist-info/LICENSE.txt
+venvb/
