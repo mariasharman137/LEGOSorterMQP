@@ -70,3 +70,5 @@ class Cnn:
               epochs=epochs,
               validation_data=(x_test, y_test),
               shuffle=True)
+    def getShape(self):
+        value = "e"
