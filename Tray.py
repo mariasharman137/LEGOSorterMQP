@@ -2,7 +2,7 @@ class Tray:
     def __init__(self):
         """
         :type height: int
-        :param height Height manipulator must reach to deposit part
+        :param height Height in mm manipulator must reach to deposit part
         :type pockets: Pocket[]
         """
         self.height = 0

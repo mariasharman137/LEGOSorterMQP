@@ -4,6 +4,9 @@ from ColorChoice import ColorChoice as CC
 from Greyscale import Greyscale
 import numpy as np
 import PartDatabase as PDb
+import Tray
+import Pocket
+import TrayDB
 
 
 class TestFunctions:
@@ -84,6 +87,38 @@ class TestFunctions:
         testPDb = PDb.PartDatabase()
         assert testPDb.returnPart("Black", "4716"), "Worm Screw Long"
 
+    def testPocket1():
+        testPocket = Pocket.Pocket()
+        testPocket.setLocation(10,20)
+        testPocket.addNewPartData(5334,5)
+        assert testPocket.currParts[0].num == 0
+        assert testPocket.maxParts[0].num == 5
+        assert testPocket.maxParts[0].partName == "5334"
+        assert testPocket.currParts[0].partName == "5334"
+
+    def testPocket2():
+        testPocket = Pocket.Pocket()
+        testPocket.setLocation(10,20)
+        testPocket.addNewPartData(5334, 5)
+        testPocket.addNewPartData(3518, 4)
+        testPocket.addNewPartData(9999, 8)
+        assert testPocket.isPartInPocket("5334")
+        assert not testPocket.isPartInPocket("69420")
+        assert testPocket.currParts[0].num == 0
+        assert testPocket.currParts[0].partName == "5334"
+        assert testPocket.maxParts[0].num == 5
+        assert testPocket.currParts[0].partName == "5334"
+        assert testPocket.canAddPartToPocket("3518")
+        testPocket.addPartToPocket("5334")
+        assert testPocket.currParts[0].num == 1
+        testPocket.currParts[0].num = 100
+        assert not testPocket.canAddPartToPocket("5334")
+
+
+
+
+
+
     if __name__ == "__main__":
         testphotoToArray()
         testBlue()
@@ -98,4 +133,6 @@ class TestFunctions:
         testPartDB1()
         testPartDB2()
         testPartDB3()
+        testPocket1()
+        testPocket2()
         print("Everything passed")

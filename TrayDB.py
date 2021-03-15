@@ -24,7 +24,7 @@ class TrayDB:
     def setHeights(self, x0, x1):
         """
 
-        :type x0: int, distance from floor to first tray, mm
+        :type x0: int, distance from top to first tray, mm
         :type x1 int, distance between trays, mm
         :return none
         """

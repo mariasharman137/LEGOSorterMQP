@@ -1,8 +1,14 @@
 class NumberOfPart:
-    def __init__(self, maxNum, partName):
+    def __init__(self,num, partName):
         """
-        :type maxNum: int
+        :type num: int
         :type partName: String
         """
-        self.maxNum = maxNum
+        self.num = num
         self.partName = partName
+
+    def setNum(self, num):
+        self.num = num
+
+    def setName(self, name):
+        self.partName = str(name)
