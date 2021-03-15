@@ -3,6 +3,8 @@ import ColorDB
 from ColorChoice import ColorChoice as CC
 from Greyscale import Greyscale
 import numpy as np
+import PartDatabase as PDb
+
 
 class TestFunctions:
 
@@ -18,17 +20,17 @@ class TestFunctions:
 
     def testBlue():
         testimg = PhI.photoToArray("ColorFiles/Blue.png")
-        print (CC.chooseColor(testimg))
+        print(CC.chooseColor(testimg))
         assert (CC.chooseColor(testimg)) == "Blue"
 
     def testRed():
         testimg = PhI.photoToArray("ColorFiles/Red.png")
-        print (CC.chooseColor(testimg))
+        print(CC.chooseColor(testimg))
         assert (CC.chooseColor(testimg)) == "Red"
 
     def testDarkGrey():
         testimg = PhI.photoToArray("ColorFiles/DarkGrey.png")
-        print (CC.chooseColor(testimg))
+        print(CC.chooseColor(testimg))
         assert (CC.chooseColor(testimg)) == "Dark Grey"
 
     def testLightGrey():
@@ -38,12 +40,12 @@ class TestFunctions:
 
     def testTan():
         testimg = PhI.photoToArray("ColorFiles/Tan.png")
-        print (CC.chooseColor(testimg))
+        print(CC.chooseColor(testimg))
         assert (CC.chooseColor(testimg)) == "Tan"
 
     def testYellow():
         testimg = PhI.photoToArray("ColorFiles/Yellow.png")
-        print (CC.chooseColor(testimg))
+        print(CC.chooseColor(testimg))
         assert (CC.chooseColor(testimg)) == "Yellow"
 
     def testDarkGreyLego():
@@ -63,16 +65,20 @@ class TestFunctions:
             for c in r:
                 print(c, end=" ")
             print()
-        assert tgs[0][0] == 0 and tgs[3][3] == 239
-
+        assert tgs[0][0] == 0 and tgs[3][3] == 131
 
     def testPrint():
         testimg = PhI.photoToArray("ColorFiles/BlankBlue.png")
-        PhI.printArray(testimg,"GSTest")
-        assert np.allclose((PhI.photoToArray("ColorFiles/BlankBlue.png")),(PhI.photoToArray("GSTest.png")))
+        PhI.printArray(testimg, "GSTest")
+        assert np.allclose((PhI.photoToArray("ColorFiles/BlankBlue.png")), (PhI.photoToArray("GSTest.png")))
 
+    def testPartDB1():
+        testPDb = PDb.PartDatabase()
+        assert testPDb.checkIfPart("Black", "4716")
 
-
+    def testPartDB2():
+        testPDb = PDb.PartDatabase()
+        assert not testPDb.checkIfPart("Purple", "22222")
 
     if __name__ == "__main__":
         testphotoToArray()
@@ -85,4 +91,6 @@ class TestFunctions:
         testBlankBlue()
         testGreyscale()
         testPrint()
+        testPartDB1()
+        testPartDB2()
         print("Everything passed")
