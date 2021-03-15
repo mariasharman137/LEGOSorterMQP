@@ -80,6 +80,10 @@ class TestFunctions:
         testPDb = PDb.PartDatabase()
         assert not testPDb.checkIfPart("Purple", "22222")
 
+    def testPartDB3():
+        testPDb = PDb.PartDatabase()
+        assert testPDb.returnPart("Black", "4716"), "Worm Screw Long"
+
     if __name__ == "__main__":
         testphotoToArray()
         testBlue()
@@ -93,4 +97,5 @@ class TestFunctions:
         testPrint()
         testPartDB1()
         testPartDB2()
+        testPartDB3()
         print("Everything passed")

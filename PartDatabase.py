@@ -18,7 +18,7 @@ class PartDatabase:
         self.addPartToDB("Black", "36538b", "Technic, Axle Connector 2L")
         self.addPartToDB("Black", "32270", "12 Tooth Gear")
         self.addPartToDB("Black", "32498", "36 Tooth Gear")
-        self.addPartToDB("Black", "4716", "BWorm Screw Long")
+        self.addPartToDB("Black", "4716", "Worm Screw Long")
         self.addPartToDB("Black", "32072", "Knob Wheel")
         self.addPartToDB("Black", "6558", "3L Pin")
         self.addPartToDB("Black", "32054", "3L Pin with Bush")
