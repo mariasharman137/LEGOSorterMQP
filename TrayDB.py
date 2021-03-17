@@ -23,6 +23,9 @@ class TrayDB:
 
         self.motors = Motors.Motors()
 
+        #TODO: Possibly add something that can check if a tray is tottaly full
+        # This would allow for trays, and maybe pockets, to be skipped
+
 
 
 
@@ -59,22 +62,31 @@ class TrayDB:
         """
         color = str(color)
         shape = str(shape)
-        self.partNotFound = True
-        while self.partNotFound:
-            if self.PDb.checkIfPart(color, shape):
-                for index,item in enumerate(self.trays, start = 0):
-                    print("Item being tested is: " + str(self.PDb.returnPart(color,shape)))
-                    print("Tray #" + str(index) )
-                    item.addPartToTray(self.PDb.returnPart(color,shape))
-                    #Quick note: return with no value is used to end a function immeadiately.
-                    # It is used in this loop to ensure only a single piece is added
+
+        if self.PDb.checkIfPart(color, shape):
+            for index,item in enumerate(self.trays, start = 0):
+                print("Item being tested is: " + str(self.PDb.returnPart(color,shape)))
+                print("Tray #" + str(index) )
+                sum1 = item.partsSum()
+                item.addPartToTray(self.PDb.returnPart(color,shape))
+                sum2 = item.partsSum()
+                if sum1 != sum2:
+                    return
+                #Quick note: return with no value is used to end a function immeadiately.
+                # It is used in this loop to ensure only a single piece is added
 
 
-                print("Tray DB has too many of this item. Sending item to Overflow")
-                self.motors.goTo(self.Overflow)
-                return
-            else:
-                print("Part is Unknown. Sending item to Unknown.")
-                self.motors.goTo(self.Unknown)
-                return
+            print("Tray DB has too many of this item. Sending item to Overflow")
+            self.motors.goTo(self.Overflow)
+            return
+        else:
+            print("Part is Unknown. Sending item to Unknown.")
+            self.motors.goTo(self.Unknown)
+            return
+
+    def partsSum(self):
+        sum = 0
+        for item in self.trays:
+            sum = sum +item.partsSum()
+        return sum
 

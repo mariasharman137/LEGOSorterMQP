@@ -188,23 +188,28 @@ class TestFunctions:
         print(testTrayDB.trays[1].pockets[0].currParts[2].partName)
         testTrayDB.placePart("Black",3705)
 
+        assert testTrayDB.trays[1].pockets[0].currParts[2].num == 1
+        assert testtray.height == 50
+        assert testtray2.height == 150
+        assert testTrayDB.partsSum() == 1
+
 
     if __name__ == "__main__":
-        #testphotoToArray()
-        #testBlue()
-        #testRed()
-        #testLightGrey()
-        #testDarkGrey()
-        #testYellow()
-        #testDarkGreyLego()
-        #testBlankBlue()
-        #testGreyscale()
-        #testPrint()
-        #testPartDB1()
-        #testPartDB2()
-        #testPartDB3()
-        #testPocket1()
-        #testPocket2()
-        #testTray()
+        testphotoToArray()
+        testBlue()
+        testRed()
+        testLightGrey()
+        testDarkGrey()
+        testYellow()
+        testDarkGreyLego()
+        testBlankBlue()
+        testGreyscale()
+        testPrint()
+        testPartDB1()
+        testPartDB2()
+        testPartDB3()
+        testPocket1()
+        testPocket2()
+        testTray()
         testTrayDB()
         print("Everything passed")
