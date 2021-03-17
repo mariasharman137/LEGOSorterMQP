@@ -110,8 +110,9 @@ class TestFunctions:
         assert testPocket.maxParts[0].num == 5
         assert testPocket.currParts[0].partName == "5334"
         assert testPocket.canAddPartToPocket("3518")
-        testPocket.addPartToPocket("5334")
+        testPocket.addPartToPocket("5334",50)
         assert testPocket.currParts[0].num == 1
+        print(str(testPocket.currParts[0].num) + "is the amount of parts")
         testPocket.currParts[0].num = 100
         assert not testPocket.canAddPartToPocket("5334")
 

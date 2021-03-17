@@ -35,4 +35,4 @@ class Motors:
 
     def MotorGoTo(self,port,goal):
         #TODO Add low level motor stuff
-        print("Motor in port " + str(port) + " is moving to" + str(goal))
+        print("Motor in port " + str(port) + " is moving to " + str(goal))
