@@ -9,6 +9,7 @@ import Pocket
 import TrayDB
 
 
+# noinspection PyMethodParameters
 class TestFunctions:
 
     # PhotoImporter.py
@@ -89,8 +90,8 @@ class TestFunctions:
 
     def testPocket1():
         testPocket = Pocket.Pocket()
-        testPocket.setLocation(10,20)
-        testPocket.addNewPartData(5334,5)
+        testPocket.setLocation(10, 20)
+        testPocket.addNewPartData(5334, 5)
         assert testPocket.currParts[0].num == 0
         assert testPocket.maxParts[0].num == 5
         assert testPocket.maxParts[0].partName == "5334"
@@ -98,7 +99,7 @@ class TestFunctions:
 
     def testPocket2():
         testPocket = Pocket.Pocket()
-        testPocket.setLocation(10,20)
+        testPocket.setLocation(10, 20)
         testPocket.addNewPartData(5334, 5)
         testPocket.addNewPartData(3518, 4)
         testPocket.addNewPartData(9999, 8)
@@ -114,25 +115,96 @@ class TestFunctions:
         testPocket.currParts[0].num = 100
         assert not testPocket.canAddPartToPocket("5334")
 
+    def testTray():
+        testPocket = Pocket.Pocket()
+        testPocket.setLocation(10, 20)
+        testPocket.addNewPartData(5334, 5)
+        testPocket.addNewPartData(3518, 4)
+        testPocket.addNewPartData(9999, 8)
 
+        testPocket2 = Pocket.Pocket()
+        testPocket2.setLocation(100, 200)
+        testPocket2.addNewPartData(1111, 1)
+        testPocket2.addNewPartData(3518, 4)
+        testPocket2.addNewPartData(2222, 2)
 
+        testtray = Tray.Tray()
+        testtray.addHeight(200)
+        testtray.addPocket(testPocket)
+        testtray.addPocket(testPocket2)
 
+        testtray.addPartToTray(2222)
+        print("One 2222 has been added")
+        print("Number of 2222 in pocket is: " + str(testtray.pockets[1].currParts[2].num))
+        assert testtray.pockets[1].currParts[2].num == 1
+
+        testtray.addPartToTray(2222)
+        print("Number of 2222 in pocket is: " + str(testtray.pockets[1].currParts[2].num))
+        assert testtray.pockets[1].currParts[2].num == 2
+        testtray.addPartToTray(2222)
+        print("Number of 2222 in pocket is: " + str(testtray.pockets[1].currParts[2].num))
+        assert testtray.pockets[1].currParts[2].num == 2
+
+    def testTrayDB():
+        testPocket = Pocket.Pocket()
+        testPocket.setLocation(10, 20)
+        testPocket.addNewPartData(5334, 5)
+        testPocket.addNewPartData(3518, 4)
+        testPocket.addNewPartData(9999, 8)
+
+        testPocket2 = Pocket.Pocket()
+        testPocket2.setLocation(100, 200)
+        testPocket2.addNewPartData(1111, 1)
+        testPocket2.addNewPartData(3518, 4)
+        testPocket2.addNewPartData(2222, 2)
+
+        testPocket3 = Pocket.Pocket()
+        testPocket3.setLocation(10, 20)
+        testPocket3.addNewPartData(5334, 5)
+        testPocket3.addNewPartData(3518, 4)
+        testPocket3.addNewPartData("Black Technic Axle 4", 8)
+
+        testPocket4 = Pocket.Pocket()
+        testPocket4.setLocation(100, 200)
+        testPocket4.addNewPartData(1111, 1)
+        testPocket4.addNewPartData(3518, 4)
+        testPocket4.addNewPartData(2222, 2)
+
+        testtray = Tray.Tray()
+        testtray.addHeight(200)
+        testtray.addPocket(testPocket)
+        testtray.addPocket(testPocket2)
+
+        testtray2 = Tray.Tray()
+        testtray2.addHeight(200)
+        testtray2.addPocket(testPocket3)
+        testtray2.addPocket(testPocket4)
+
+        testTrayDB = TrayDB.TrayDB()
+        testTrayDB.addTray(testtray)
+        testTrayDB.addTray((testtray2))
+
+        testTrayDB.setHeights(50,100)
+        print(testTrayDB.trays[1].pockets[0].currParts[2].partName)
+        testTrayDB.placePart("Black",3705)
 
 
     if __name__ == "__main__":
-        testphotoToArray()
-        testBlue()
-        testRed()
-        testLightGrey()
-        testDarkGrey()
-        testYellow()
-        testDarkGreyLego()
-        testBlankBlue()
-        testGreyscale()
-        testPrint()
-        testPartDB1()
-        testPartDB2()
-        testPartDB3()
-        testPocket1()
-        testPocket2()
+        #testphotoToArray()
+        #testBlue()
+        #testRed()
+        #testLightGrey()
+        #testDarkGrey()
+        #testYellow()
+        #testDarkGreyLego()
+        #testBlankBlue()
+        #testGreyscale()
+        #testPrint()
+        #testPartDB1()
+        #testPartDB2()
+        #testPartDB3()
+        #testPocket1()
+        #testPocket2()
+        #testTray()
+        testTrayDB()
         print("Everything passed")

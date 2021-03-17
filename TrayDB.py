@@ -1,10 +1,30 @@
 import PartDatabase
+import Motors
 
 
 class TrayDB:
+    partNotFound = True
     #Tray 0 is the top tray
     def __init__(self):
-        trays = []
+        self.trays = []
+        self.PDb = PartDatabase.PartDatabase()
+
+        #Location for where unknown parts go
+        self.UnknownX = 100
+        self.UnknownY = 100
+        self.UnknownZ = 100
+        self.Unknown = [self.UnknownX,self.UnknownY,self.UnknownZ]
+
+        #Location for Overflow parts
+        self.OverflowX = 200
+        self.OverflowY = 200
+        self.OverflowZ = 200
+        self.Overflow = [self.OverflowX,self.OverflowY, self.OverflowZ]
+
+        self.motors = Motors.Motors()
+
+
+
 
     def addTray(self, tray):
         """This function adds a tray to the TrayDB
@@ -12,7 +32,7 @@ class TrayDB:
         :param tray: Tray
         :return: none
         """
-        self.trays.add(tray)
+        self.trays.append(tray)
 
     def removeTray(self, index):
         """This function removes a Tray from TrayDB
@@ -28,34 +48,33 @@ class TrayDB:
         :type x1 int, distance between trays, mm
         :return none
         """
-        for i in self.trays:
-            self.trays[i].addHeight(x0 + x1 * i)
+        for index,item in enumerate(self.trays, start = 0):
+            item.addHeight(x0 + x1 * index)
 
-    def placePart(self, name):
+    def placePart(self, color,shape):
         """ This function finds where there is room for the part, starting from the top tray and moving down
 
         :param name: String, the name of the part being placed
         :return: none
         """
-        # this flag turns False once the part had been placed
-        iterator = True
-        # This Flag becomes true if the part cannot be placed because the pocket is full. Is reset if the part is placed.
-        full = False
-        if PartDatabase.checkIfPart(name, ""):
-            while iterator == True:
-                for i in self.trays:
-                    for j in self.trays.pockets:
-                        for k in self.trays.pockets.currParts:
-                            if self.trays[i].pockets[j].currParts[k].partName == name:
-                                if self.trays[i].pockets[j].currParts[k].maxNum > self.trays[i].pockets[j].currParts[
-                                    k].currNum:
-                                    self.trays[i].pockets[j].currParts[k].currNum += 1
-                                    full = False
-                                    # goTo(self.trays[i].pockets[j].location.x,self.trays[i].pockets[j].location.y,trays[i].height)
-                                    iterator = False
-                                else:
-                                    full = True
-            # if full:
-            # goto(LocationForOverflow)
-        # else:
-        # goTo(LocationForUnknown)
+        color = str(color)
+        shape = str(shape)
+        self.partNotFound = True
+        while self.partNotFound:
+            if self.PDb.checkIfPart(color, shape):
+                for index,item in enumerate(self.trays, start = 0):
+                    print("Item being tested is: " + str(self.PDb.returnPart(color,shape)))
+                    print("Tray #" + str(index) )
+                    item.addPartToTray(self.PDb.returnPart(color,shape))
+                    #Quick note: return with no value is used to end a function immeadiately.
+                    # It is used in this loop to ensure only a single piece is added
+
+
+                print("Tray DB has too many of this item. Sending item to Overflow")
+                self.motors.goTo(self.Overflow)
+                return
+            else:
+                print("Part is Unknown. Sending item to Unknown.")
+                self.motors.goTo(self.Unknown)
+                return
+

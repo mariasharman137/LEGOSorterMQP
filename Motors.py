@@ -15,8 +15,10 @@ class Motors:
         self.DEFAULTX = 0
         self.DEFAULTY = 0
 
-    def goTo(self,goalx,goaly,goalz):
-
+    def goTo(self,locationList):
+        goalx = locationList[0]
+        goaly = locationList[1]
+        goalz = locationList[2]
         #resets tray position
         self.MotorGoTo(self.PORTX,self.DEFAULTX)
         self.MotorGoTo(self.PORTY, self.DEFAULTY)
@@ -33,3 +35,4 @@ class Motors:
 
     def MotorGoTo(self,port,goal):
         #TODO Add low level motor stuff
+        print("Motor in port " + str(port) + " is moving to" + str(goal))

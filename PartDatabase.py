@@ -98,20 +98,20 @@ class PartDatabase:
         :param name: String
         :return: none
         """
-        key = color + shape
+        key = color +" "+ shape
         #dict value now has color so it adds itself to the value with the part name
-        self.pdb[key] = color + name
+        self.pdb[key] = color +" "+ name
     def removePartFromDB(self,color,shape):
         """
         :param color: String
         :param shape: String
         :return none
         """
-        key = color+shape
+        key = color+" "+shape
         del self.pdb[key]
 
     def checkIfPart(self, color, shape):
-        key = color + shape
+        key = color + " " +shape
         if key in self.pdb.keys():
             return True
         else:
@@ -125,5 +125,5 @@ class PartDatabase:
         :rtype String
         :return The name of the part
         """
-        return self.pdb[color + shape]
+        return self.pdb[color +" "+ shape]
 

@@ -9,7 +9,20 @@ class Tray:
         self.pockets = []
 
     def addPocket(self, pocket):
-        self.pockets.add(pocket)
+        self.pockets.append(pocket)
 
     def addHeight(self, height):
         self.height = height
+
+    def addPartToTray(self,partName):
+        partName = str(partName)
+        for index,item in enumerate(self.pockets, start = 0):
+            print("\n")
+            print("Pocket number: " +str(index))
+            print("Part is:" +str(partName) )
+            print("Entering Pocket Function:\n\n")
+            item.addPartToPocket(partName,self.height)
+
+
+
+
