@@ -1,11 +1,12 @@
 import PartDatabase
 import Motors
+import Tray
 
 
 class TrayDB:
     partNotFound = True
     #Tray 0 is the top tray
-    def __init__(self):
+    def __init__(self,number):
         self.trays = []
         self.PDb = PartDatabase.PartDatabase()
 
@@ -23,8 +24,17 @@ class TrayDB:
 
         self.motors = Motors.Motors()
 
-        #TODO: Possibly add something that can check if a tray is tottaly full
-        # This would allow for trays, and maybe pockets, to be skipped
+        i = 0
+        while i < number:
+            tray = Tray.Tray()
+            self.trays.addTray(tray)
+            i = i + 1
+        for tray in self.trays:
+            tray.intializeTray()
+
+
+
+
 
 
 

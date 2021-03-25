@@ -16,6 +16,7 @@ class Pocket:
         self.currParts = []
         self.motors = Motors.Motors()
 
+
     def setLocation(self, x, y):
         self.location.addx(x)
         self.location.addy(y)

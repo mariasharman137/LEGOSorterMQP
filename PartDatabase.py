@@ -16,8 +16,8 @@ class PartDatabase:
         self.addPartToDB("Black", "32034", "Technic, Axle and Pin Connector 180 degrees")
         self.addPartToDB("Black", "32184", "Technic, Axle and Pin Connector Perpendicular")
         self.addPartToDB("Black", "36538b", "Technic, Axle Connector 2L")
-        self.addPartToDB("Black", "32270", "12 Tooth Gear")
-        self.addPartToDB("Black", "32498", "36 Tooth Gear")
+        self.addPartToDB("Black", "32270", "12T Gear")
+        self.addPartToDB("Black", "32498", "36T Gear")
         self.addPartToDB("Black", "4716", "Worm Screw Long")
         self.addPartToDB("Black", "32072", "Knob Wheel")
         self.addPartToDB("Black", "6558", "3L Pin")
@@ -26,8 +26,10 @@ class PartDatabase:
         self.addPartToDB("Black", "2780", "Technic Pin 2L")
         self.addPartToDB("Black", "2815", "Pulley Tire")
         self.addPartToDB("Blue", "43093", "Technic Axle with Pin")
+        self.addPartToDB("Black", "30648", "24mm Tire")
+        self.addPartToDB("Dark Grey", "42003","3L 2 Pin 1 Axle Perpendicular Connector")
         self.addPartToDB("Dark Grey", "32209", "Axle 5.5 with Stop")
-        self.addPartToDB("Dark Grey", "32291", "Perpendicular 2 Pin 1 Axle connector")
+        self.addPartToDB("Dark Grey", "32291", "2L Perpendicular 2 Pin 1 Axle Connector")
         self.addPartToDB("Dark Grey", "32064b", "1x2 Brick with Axle hole")
         self.addPartToDB("Dark Grey", "32523", "Liftarm Thick 1x3")
         self.addPartToDB("Dark Grey", "32316", "Liftarm Thick 1x5")
@@ -40,7 +42,7 @@ class PartDatabase:
         self.addPartToDB("Dark Grey", "32009", "Liftarm Bent 7-4-3")
         self.addPartToDB("Dark Grey", "32140", "Liftarm L 2x4")
         self.addPartToDB("Dark Grey", "32526", "Liftarm L 3x5")
-        self.addPartToDB("Dark Grey", "32250", "Liftarm L 3x5 Quarter Elipse")
+        self.addPartToDB("Dark Grey", "32250", "Liftarm L 3x5 Quarter Ellipse")
         self.addPartToDB("Dark Grey", "3069b", "1x2 Tile")
         self.addPartToDB("Light Grey", "3004", "Brick 1x2")
         self.addPartToDB("Light Grey", "3003", "Brick 2x2")
@@ -67,6 +69,8 @@ class PartDatabase:
         self.addPartToDB("Light Grey", "3709b", "2x4 Plate 3 Holes")
         self.addPartToDB("Light Grey", "32001", "2x6 Plate 5 Holes")
         self.addPartToDB("Light Grey", "3738", "2x8 Plate 7 Holes")
+        self.addPartToDB("Light Grey","55981","18mm Wheel")
+        self.addPartToDB("Light Grey", "56145","30mm Wheel")
         self.addPartToDB("Red", "3709b", "2L Axle")
         self.addPartToDB("Tan", "3709b", "Axle and Pin")
         self.addPartToDB("Light Grey", "3709b", "2x4 Plate 3 Holes")
@@ -125,5 +129,6 @@ class PartDatabase:
         :rtype String
         :return The name of the part
         """
-        return self.pdb[color +" "+ shape]
+        key = color + " " + shape
+        return self.pdb[key]
 
