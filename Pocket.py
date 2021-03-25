@@ -27,46 +27,32 @@ class Pocket:
         self.maxParts.append(NoPM)
         self.currParts.append(NoPC)
 
-    def isPartInPocket(self, partName):
-        partName = str(partName)
-        for item in self.maxParts:
-            # print("Checking if part in pocket:")
-            # print(item.partName)
-            if item.partName == partName:
-                # print("Part found in Pocket:")
-                # print(item.partName)
-                # print("End of iPIP Loop")
-                return True
-
-        return False
 
     def canAddPartToPocket(self, partName):
         partName = str(partName)
         for index, item in enumerate(self.maxParts, start=0):
             if item.partName == partName:
                 maxAmt = item.num
-                # print("Max:")
-                # print(item.num)
-                # print("Part Name:")
-                # print(item.partName)
-                # print("Item index is:")
-                # print(index)
+                #print("Max:")
+                #print(item.num)
+                #print("Part Name:")
+                #print(item.partName)
+                #print("Item index is:")
+                #print(index)
                 currentAmt = self.currParts[index].num
-                # print ("curr:")
-                # print(currentAmt)
+                #print ("curr:")
+                #print(currentAmt)
                 if currentAmt + 1 <= maxAmt:
                     return True
                 else:
                     return False
 
     def addPartToPocket(self, partName,height):
-        if self.isPartInPocket(partName) and self.canAddPartToPocket(partName):
-            print("Is Part in Pocket?")
-            print(self.isPartInPocket(partName))
-            print("Can this part be added to this pocket?")
-            print(self.canAddPartToPocket(partName))
+        if self.canAddPartToPocket(partName):
+            #print("Can this part be added to this pocket?")
+            #print(str(self.canAddPartToPocket(partName)))
             for index, item in enumerate(self.maxParts, start=0):
-                print("Item being tested is:" + str(self.maxParts[index].partName) + "\n")
+                #print("Item being tested is:" + str(self.maxParts[index].partName) + "\n")
                 if item.partName == partName:
                     self.currParts[index].num = self.currParts[index].num + 1
                     print("Part added is:" + str(self.currParts[index].partName))

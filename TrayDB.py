@@ -1,6 +1,7 @@
 import PartDatabase
 import Motors
 import Tray
+import PartToPocket
 
 
 class TrayDB:
@@ -9,6 +10,7 @@ class TrayDB:
     def __init__(self,number):
         self.trays = []
         self.PDb = PartDatabase.PartDatabase()
+        self.ptp = PartToPocket.PartToPocket()
 
         #Location for where unknown parts go
         self.UnknownX = 100
@@ -27,7 +29,7 @@ class TrayDB:
         i = 0
         while i < number:
             tray = Tray.Tray()
-            self.trays.addTray(tray)
+            self.addTray(tray)
             i = i + 1
         for tray in self.trays:
             tray.intializeTray()
@@ -74,11 +76,13 @@ class TrayDB:
         shape = str(shape)
 
         if self.PDb.checkIfPart(color, shape):
+            partName = (self.PDb.returnPart(color, shape))
+            partPocket = self.ptp.getPocket(partName)
             for index,item in enumerate(self.trays, start = 0):
-                print("Item being tested is: " + str(self.PDb.returnPart(color,shape)))
-                print("Tray #" + str(index) )
+                #print("Item being tested is: " + str(self.PDb.returnPart(color,shape)))
+                print("Tray #" + str(index))
                 sum1 = item.partsSum()
-                item.addPartToTray(self.PDb.returnPart(color,shape))
+                item.addPartToTray(self.PDb.returnPart(color,shape),partPocket)
                 sum2 = item.partsSum()
                 if sum1 != sum2:
                     return
