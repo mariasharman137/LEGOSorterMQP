@@ -2,7 +2,9 @@ from PIL import Image
 import numpy as np
 
 class Greyscale:
-    def ArraytoGreyscale(array):
+    def __init__(self):
+        pass
+    def arraytoGreyscale(self,array):
         """
 
         :param photo_name: String containing the location of the photo

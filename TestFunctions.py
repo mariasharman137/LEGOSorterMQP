@@ -8,6 +8,7 @@ import Tray
 import Pocket
 import TrayDB
 import PartToPocket
+import Cnn
 
 
 # noinspection PyMethodParameters
@@ -114,6 +115,24 @@ class TestFunctions:
         assert testTDb.trays[0].partsSum() == 6
         assert testTDb.trays[1].partsSum() == 1
 
+    def testCnnDataArray():
+        testCNN = Cnn.Cnn();
+        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        print(testCNN.makeDataArray(testDirectory))
+    def testCnnLabelList():
+        testCNN = Cnn.Cnn();
+        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        print(testCNN.makeLabelArray(testDirectory))
+
+    def testPIimagesFromFolder():
+        PI = PhI()
+        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        print(PI.imagesFromFolder(testDirectory))
+    def testCNN():
+        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        testCnn = Cnn.Cnn()
+        testCnn.Train(testDirectory)
+
     if __name__ == "__main__":
         # testphotoToArray()
         # testBlue()
@@ -128,6 +147,10 @@ class TestFunctions:
         # testPartDB1()
         # testPartDB2()
         # testPartDB3()
-        testPTP()
-        testTDb()
+        #testPTP()
+        #testTDb()
+        testCnnLabelList()
+        testCnnDataArray()
+        #testPIimagesFromFolder()
+        #testCNN()
         print("Everything passed")
