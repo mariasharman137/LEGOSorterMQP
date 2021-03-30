@@ -132,6 +132,9 @@ class TestFunctions:
         testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
         testCnn = Cnn.Cnn()
         testCnn.Train(testDirectory)
+    def testPartsList():
+        testPDb = PDb.PartDatabase()
+        print(testPDb.partsList)
 
     if __name__ == "__main__":
         # testphotoToArray()
@@ -149,8 +152,9 @@ class TestFunctions:
         # testPartDB3()
         #testPTP()
         #testTDb()
-        testCnnLabelList()
-        testCnnDataArray()
+        #testCnnLabelList()
+        #testCnnDataArray()
         #testPIimagesFromFolder()
         #testCNN()
+        testPartsList()
         print("Everything passed")

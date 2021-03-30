@@ -8,6 +8,7 @@ class PartDatabase:
     """
     def __init__(self):
         self.pdb = dict()
+        self.partsList = []
         self.addPartToDB("Black", "3705", "Technic Axle 4")
         self.addPartToDB("Black", "3706", "Technic Axle 6")
         self.addPartToDB("Black", "3707", "Technic Axle 8")
@@ -105,6 +106,7 @@ class PartDatabase:
         key = color +" "+ shape
         #dict value now has color so it adds itself to the value with the part name
         self.pdb[key] = color +" "+ name
+        self.partsList.append(shape)
     def removePartFromDB(self,color,shape):
         """
         :param color: String
