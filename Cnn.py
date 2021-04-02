@@ -101,16 +101,24 @@ class Cnn:
             print("array shape is:")
             print(array.shape)
             if counter == 0:
-                npa = array.resize((50,50),refcheck=False)
+                print("array shape is:")
+                print(array.shape)
+                npa = np.resize(array,(50,50))#removed refcheck =False
                 print("npa in if is:")
                 print(npa)
+                print("array shape after reshape is:")
+                print(array.shape)
+                print("npa shape is now")
+                print(npa.shape)
                 counter += 1
             else:
-                ar = array.resize((50,50),refcheck=False)
-                npa = np.dstack((npa, ar))
+                ar = np.resize(array,(50,50))
+                npa = np.dstack((npa, ar))#removed refcheck =False
                 print("npa in else is:")
                 print(npa)
-            print("npa at enf of ifs:")
+                print("npa shape is now")
+                print(npa.shape)
+            print("npa at end of ifs:")
             print(npa)
         print("Final npa:")
         print(npa)

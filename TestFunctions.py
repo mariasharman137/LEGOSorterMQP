@@ -118,7 +118,11 @@ class TestFunctions:
     def testCnnDataArray():
         testCNN = Cnn.Cnn();
         testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
-        print(testCNN.makeDataArray(testDirectory))
+        results = testCNN.makeDataArray(testDirectory)
+        print("results")
+        print(results)
+        print("Each array")
+        print(np.dsplit(results, 13))
     def testCnnLabelList():
         testCNN = Cnn.Cnn();
         testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
@@ -153,8 +157,8 @@ class TestFunctions:
         #testPTP()
         #testTDb()
         #testCnnLabelList()
-        #testCnnDataArray()
+        testCnnDataArray()
         #testPIimagesFromFolder()
         #testCNN()
-        testPartsList()
+        #testPartsList()
         print("Everything passed")
