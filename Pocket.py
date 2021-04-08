@@ -42,6 +42,7 @@ class Pocket:
                 currentAmt = self.currParts[index].num
                 #print ("curr:")
                 #print(currentAmt)
+                print("Pocket #" + str(index))
                 if currentAmt + 1 <= maxAmt:
                     return True
                 else:

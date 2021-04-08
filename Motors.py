@@ -16,23 +16,38 @@ class Motors:
         self.DEFAULTY = 0
 
     def goTo(self,locationList):
-        goalx = locationList[0]
-        goaly = locationList[1]
-        goalz = locationList[2]
-        #resets tray position
-        self.MotorGoTo(self.PORTX,self.DEFAULTX)
-        self.MotorGoTo(self.PORTY, self.DEFAULTY)
-        #TODO: Drop Part
+        goalx = int(locationList[0])
+        goaly = int(locationList[1])
+        goalz = int(locationList[2])
 
-        #Move to destination
+        self.MotorGoTo(self.PORTY, self.DEFAULTY)
+        self.MagnetOff()
+        self.MotorGoTo(self.PORTX,self.DEFAULTX)
+        self.dropPart()
         self.MotorGoTo(self.PORTZ, goalz)
-        #TODO turn on magnet
+        self.MagnetOn()
         self.MotorGoTo(self.PORTY, goaly)
         self.MotorGoTo(self.PORTX, goalx)
-        #TODO open end-effector
+        self.openClaw()
+        self.closeClaw()
 
         #Robot will return to default position next time code is run
 
     def MotorGoTo(self,port,goal):
         #TODO Add low level motor stuff
         print("Motor in port " + str(port) + " is moving to " + str(goal))
+
+    def MagnetOn(self):
+        print("Magnet turning on")
+
+    def MagnetOff(self):
+        print("Magnet turning off")
+
+    def dropPart(self):
+        print("Dropping part")
+
+    def openClaw(self):
+        print("Opening claw")
+
+    def closeClaw(self):
+        print("Closing claw")

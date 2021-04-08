@@ -80,11 +80,13 @@ class TrayDB:
             partPocket = self.ptp.getPocket(partName)
             for index,item in enumerate(self.trays, start = 0):
                 #print("Item being tested is: " + str(self.PDb.returnPart(color,shape)))
-                print("Tray #" + str(index))
+
                 sum1 = item.partsSum()
                 item.addPartToTray(self.PDb.returnPart(color,shape),partPocket)
                 sum2 = item.partsSum()
                 if sum1 != sum2:
+                    print("This item was placed in: Tray #" + str(index))
+                    print("\n\n\n\n\n")
                     return
                 #Quick note: return with no value is used to end a function immeadiately.
                 # It is used in this loop to ensure only a single piece is added
@@ -92,10 +94,12 @@ class TrayDB:
 
             print("Tray DB has too many of this item. Sending item to Overflow")
             self.motors.goTo(self.Overflow)
+            print("\n\n\n\n\n")
             return
         else:
             print("Part is Unknown. Sending item to Unknown.")
             self.motors.goTo(self.Unknown)
+            print("\n\n\n\n\n")
             return
 
     def partsSum(self):
