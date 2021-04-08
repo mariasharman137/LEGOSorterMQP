@@ -159,14 +159,14 @@ button_open_claw = tk.Button(window, text="Open Claw", command=openClaw)
 button_close_claw = tk.Button(window, text="Close Claw", command=closeClaw)
 
 # Reset Button Colors
-button_reset_colors = tk.Button(window, text="Reset CGui Colors", command=resetColors)
+button_reset_colors = tk.Button(window, text="Reset CGui Button Colors", command=resetColors)
 
 # Place Part
 button_place_part = tk.Button(window, text="Press to place part with above color and shape", command=placePart)
 
 # Get Distance
-button_Us_Sensor = tk.Button(window, command = getUsDistance)
-label_Us_Distance = tk.Label(window, text = "Press to get distance obtained by Ultrasonic Sensor")
+button_Us_Sensor = tk.Button(window, command = getUsDistance, text = "Press to get distance obtained by Ultrasonic Sensor")
+label_Us_Distance = tk.Label(window, text = "Distance is: ")
 
 # Locations of elements in grid:
 imageColor.grid(column=1, row=1)
@@ -178,8 +178,8 @@ label_color.grid(column=1, row=2)
 label_shape.grid(column=1, row=3)
 entry_shape.grid(column=2, row=3)
 
-button_pos_xyz.grid(column=1, row=7)
-entry_pos_xyz.grid(column=2, row=7)
+button_pos_xyz.grid(column=2, row=7)
+
 
 button_pos_x.grid(column=1, row=4)
 entry_pos_x.grid(column=2, row=4)
@@ -194,16 +194,16 @@ label_partname.grid(column=2, row=8)
 button_partname.grid(column=1, row=8)
 
 # Button to turn magnet on
-button_magnet_on.grid(column=1, row=9)
-button_magnet_off.grid(column=2, row=9)
+button_magnet_on.grid(column=1, row=11)
+button_magnet_off.grid(column=2, row=11)
 
 button_open_claw.grid(column=1, row=10)
 button_close_claw.grid(column=2, row=10)
 
-button_part_drop.grid(column=1, row=11)
-button_reset_colors.grid(column=2, row=11)
+button_part_drop.grid(column=1, row=12)
+button_reset_colors.grid(column=2, row=12)
 
-button_place_part.grid(column=1, row=12)
+button_place_part.grid(column=2, row=9)
 
 button_Us_Sensor.grid(column=2, row = 13)
 label_Us_Distance.grid(column=1, row = 13)

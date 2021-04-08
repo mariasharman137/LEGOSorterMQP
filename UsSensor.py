@@ -8,5 +8,6 @@ class UsSensor:
         #start timer
         #wait for return signal
         #end timer
-        #deltatime / 58 = dist in cm
+        #deltatime(us) / 58 = dist in cm
+        #deltatime(us) / 5.8 = dist in mm
         pass
