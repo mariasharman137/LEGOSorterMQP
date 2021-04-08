@@ -1,3 +1,5 @@
+#import Jetson.GPIO as GPIO
+
 class Motors:
     def __init__(self):
         #Assuming X is direction in which trays open/close

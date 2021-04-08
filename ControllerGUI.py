@@ -9,6 +9,7 @@ from tkinter import font
 import TrayDB
 import PartDatabase
 import Motors
+import UsSensor
 
 window = tk.Tk()
 filename = "ColorFiles/Default.png"
@@ -19,6 +20,7 @@ gRender = ""
 myFont = font.Font(family='Helvetica', size=20)
 CGPDb = PartDatabase.PartDatabase()
 CGMotors = Motors.Motors()
+CGUsSensor = UsSensor.UsSensor()
 
 # going with 5 trays as default since that is the max the robot can hold
 CGTDb = TrayDB.TrayDB(5)
@@ -99,9 +101,12 @@ def resetColors():
     button_open_claw.configure(bg="white")
     button_part_drop.configure(bg="white")
 
+def getUsDistance():
+    label_Us_Distance.configure(text = "The distance is " + str(CGUsSensor.USMeasure()) + " cm")
+
 
 window.title('Controller Gui')
-window.geometry("1900x1080")
+window.geometry("950x540")
 window.config(background="white")
 
 button_exit = tk.Button(window, text="Exit", command=exit, width=30, height=1, bg="red", font=myFont)
@@ -159,6 +164,10 @@ button_reset_colors = tk.Button(window, text="Reset CGui Colors", command=resetC
 # Place Part
 button_place_part = tk.Button(window, text="Press to place part with above color and shape", command=placePart)
 
+# Get Distance
+button_Us_Sensor = tk.Button(window, command = getUsDistance)
+label_Us_Distance = tk.Label(window, text = "Press to get distance obtained by Ultrasonic Sensor")
+
 # Locations of elements in grid:
 imageColor.grid(column=1, row=1)
 button_exit.grid(column=2, row=1)
@@ -195,6 +204,9 @@ button_part_drop.grid(column=1, row=11)
 button_reset_colors.grid(column=2, row=11)
 
 button_place_part.grid(column=1, row=12)
+
+button_Us_Sensor.grid(column=2, row = 13)
+label_Us_Distance.grid(column=1, row = 13)
 
 # to show the window
 window.mainloop()
