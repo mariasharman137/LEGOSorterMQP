@@ -26,6 +26,8 @@ class Tray:
         pocket12 = Pocket.Pocket()
         pocket13 = Pocket.Pocket()
 
+        #Locations will go with its parts once calculated
+
         # Pocket 1 Parts
         pocket1.addNewPartData("Light Grey Crank", 2)
         pocket1.addNewPartData("Black Double Pin with Axle Hole", 2)
