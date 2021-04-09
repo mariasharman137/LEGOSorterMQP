@@ -22,6 +22,7 @@ class Motors:
         goaly = int(locationList[1])
         goalz = int(locationList[2])
 
+        self.MagnetOn()
         self.MotorGoTo(self.PORTY, self.DEFAULTY)
         self.MagnetOff()
         self.MotorGoTo(self.PORTX,self.DEFAULTX)
@@ -32,6 +33,7 @@ class Motors:
         self.MotorGoTo(self.PORTX, goalx)
         self.openClaw()
         self.closeClaw()
+        self.MagnetOff()
 
         #Robot will return to default position next time code is run
 
