@@ -12,6 +12,7 @@ class Tray:
         self.pockets = []
 
     def intializeTray(self):
+        #TODO: Flip x
         pocket1 = Pocket.Pocket()
         pocket2 = Pocket.Pocket()
         pocket3 = Pocket.Pocket()
