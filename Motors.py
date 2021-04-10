@@ -5,8 +5,9 @@ class Motors:
     def __init__(self):
 
         #setting channel names
-        self.DirectionX = 19
-        self.StepX = 22
+        self.DirectionX = 22
+        self.StepX = 19
+        self.ResetX = 21
 
         #Assuming X is direction in which trays open/close
 
@@ -23,10 +24,13 @@ class Motors:
         self.DEFAULTX = 0
         self.DEFAULTY = 0
 
+        #Variable becomes false if it is reset
+
         #Code to set up GPIO stuff
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.DirectionX, GPIO.OUT,initial=GPIO.LOW) #directionX
         GPIO.setup(self.StepX, GPIO.OUT,initial=GPIO.LOW) #stepX
+        GPIO.setup(self.ResetX, GPIO.IN)
 
         self.xpos = 0.0
         self.ypos = 0.0
@@ -71,23 +75,31 @@ class Motors:
             #.157 mm / step
             if self.xpos < goal:
                 GPIO.output(self.DirectionX,GPIO.HIGH)
-                while self.xpos < goal:
+                while self.xpos < goal and self.move == True:
                     GPIO.output(self.StepX,GPIO.HIGH)
-                    time.sleep(0.1)
+                    time.sleep(0.01)
                     GPIO.output(self.StepX,GPIO.LOW)
-                    time.sleep(0.05)
+                    time.sleep(0.005)
                     self.xpos = self.xpos + .157
+                    if GPIO.input(self.ResetX) == GPIO.HIGH:
+                        self.xpos = 0
+                        self.move = False
                     print(self.xpos)
+                self.move = True
 
-            elif self.xpos > goal:
+            elif self.xpos > goal :
                 GPIO.output(self.DirectionX,GPIO.LOW)
-                while self.xpos > goal:
+                while self.xpos > goal and self.move == True:
                     GPIO.output(self.StepX,GPIO.HIGH)
-                    time.sleep(0.1)
+                    time.sleep(0.01)
                     GPIO.output(self.StepX,GPIO.LOW)
-                    time.sleep(0.05)
+                    time.sleep(0.005)
                     self.xpos = self.xpos - .157
+                    if GPIO.input(self.ResetX) == GPIO.HIGH:
+                        self.xpos = 0
+                        self.move = False
                     print(self.xpos)
+                self.move = true
 
             else:
                 pass
@@ -103,9 +115,9 @@ class Motors:
                 GPIO.output(self.DirectionY,GPIO.HIGH)
                 while self.ypos < goal:
                     GPIO.output(self.StepY,GPIO.HIGH)
-                    time.sleep(0.1)
+                    time.sleep(0.01)
                     GPIO.output(self.StepY,GPIO.LOW)
-                    time.sleep(0.05)
+                    time.sleep(0.005)
                     self.ypos = self.ypos + .157
                     print(self.ypos)
 
@@ -113,15 +125,15 @@ class Motors:
                 GPIO.output(self.DirectionY,GPIO.LOW)
                 while self.ypos > goal:
                     GPIO.output(self.StepY,GPIO.HIGH)
-                    time.sleep(0.1)
+                    time.sleep(0.01)
                     GPIO.output(self.StepY,GPIO.LOW)
-                    time.sleep(0.05)
+                    time.sleep(0.005)
                     self.ypos = self.ypos - .157
                     print(self.ypos)
 
             else:
                 pass
-        elif name == "Z"
+        elif name == "Z":
             print("Z Motor not enabled yet")
 
 
