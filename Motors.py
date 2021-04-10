@@ -1,18 +1,19 @@
 import Jetson.GPIO as GPIO
+import time
 
 class Motors:
     def __init__(self):
 
         #setting channel names
-        DirectionX = 19
-        StepX = 22
+        self.DirectionX = 19
+        self.StepX = 22
 
         #Assuming X is direction in which trays open/close
 
         #These are the ports for the motors which move things in the x,y,or z axis.
-        self.PORTX = 1
-        self.PORTY = 2
-        self.PORTZ = 3
+        self.PORTX = "X"
+        self.PORTY = "Y"
+        self.PORTZ = "Z"
 
         #These are locations for the robot when they trays are closed
         self.CLOSETRAYX = 100
@@ -24,8 +25,12 @@ class Motors:
 
         #Code to set up GPIO stuff
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(DirectionX, GPIO.OUT) #directionX
-        GPIO.setup(StepX, GPIO.OUT) #stepX
+        GPIO.setup(self.DirectionX, GPIO.OUT) #directionX
+        GPIO.setup(self.StepX, GPIO.OUT) #stepX
+
+        self.posx = 0.0
+        self.posy = 0.0
+        self.posz = 0.0
 
         #Set state: GPIO.output(channel,state)
         #set state: GPIO.output(channel,state, intital = GPIO.HIGH  OR GPIO.LOW)
@@ -53,9 +58,36 @@ class Motors:
 
         #Robot will return to default position next time code is run
 
-    def MotorGoTo(self,port,goal):
+    def MotorGoTo(self,name,goal):
         #TODO Add low level motor stuff
+
         print("Motor in port " + str(port) + " is moving to " + str(goal))
+        if name == "X":
+            #assuming at 0
+            #step angle = 1.2 deg
+            #OD = 15 mm
+            #Circ = 47.23 mm
+            #300 steps per circumference
+            #.157 mm / step
+            if self.xpos < goal:
+                GPIO.output(self.DirectionX,GPIO.HIGH)
+                while self.xpos < goal:
+                    GPIO.output(self.StepX,GPIO.HIGH)
+                    GPIO.output(self.StepX,GPIO.LOW)
+                    self.xpos = self.xpos + .157
+
+            elif self.xpos > goal:
+                GPIO.output(self.DirectionX,GPIO.LOW)
+                while xpos > goal:
+                    GPIO.output(self.StepX,GPIO.HIGH)
+                    GPIO.output(self.StepX,GPIO.LOW)
+                    self.xpos = self.xpos - .157
+
+            else:
+                pass
+
+
+            
 
     def MagnetOn(self):
         print("Magnet turning on")
