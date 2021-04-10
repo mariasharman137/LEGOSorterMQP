@@ -25,12 +25,12 @@ class Motors:
 
         #Code to set up GPIO stuff
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.DirectionX, GPIO.OUT) #directionX
-        GPIO.setup(self.StepX, GPIO.OUT) #stepX
+        GPIO.setup(self.DirectionX, GPIO.OUT,initial=GPIO.LOW) #directionX
+        GPIO.setup(self.StepX, GPIO.OUT,initial=GPIO.LOW) #stepX
 
-        self.posx = 0.0
-        self.posy = 0.0
-        self.posz = 0.0
+        self.xpos = 0.0
+        self.ypos = 0.0
+        self.zpos = 0.0
 
         #Set state: GPIO.output(channel,state)
         #set state: GPIO.output(channel,state, intital = GPIO.HIGH  OR GPIO.LOW)
@@ -61,7 +61,7 @@ class Motors:
     def MotorGoTo(self,name,goal):
         #TODO Add low level motor stuff
 
-        print("Motor in port " + str(port) + " is moving to " + str(goal))
+        print("Motor " + str(name) + " is moving to " + str(goal))
         if name == "X":
             #assuming at 0
             #step angle = 1.2 deg
@@ -73,18 +73,56 @@ class Motors:
                 GPIO.output(self.DirectionX,GPIO.HIGH)
                 while self.xpos < goal:
                     GPIO.output(self.StepX,GPIO.HIGH)
+                    time.sleep(0.1)
                     GPIO.output(self.StepX,GPIO.LOW)
+                    time.sleep(0.05)
                     self.xpos = self.xpos + .157
+                    print(self.xpos)
 
             elif self.xpos > goal:
                 GPIO.output(self.DirectionX,GPIO.LOW)
-                while xpos > goal:
+                while self.xpos > goal:
                     GPIO.output(self.StepX,GPIO.HIGH)
+                    time.sleep(0.1)
                     GPIO.output(self.StepX,GPIO.LOW)
+                    time.sleep(0.05)
                     self.xpos = self.xpos - .157
+                    print(self.xpos)
 
             else:
                 pass
+
+        elif name == "Y":
+        #assuming at 0
+        #step angle = 1.2 deg
+        #OD = 15 mm
+        #Circ = 47.23 mm
+        #300 steps per circumference
+        #.157 mm / step
+            if self.ypos < goal:
+                GPIO.output(self.DirectionY,GPIO.HIGH)
+                while self.ypos < goal:
+                    GPIO.output(self.StepY,GPIO.HIGH)
+                    time.sleep(0.1)
+                    GPIO.output(self.StepY,GPIO.LOW)
+                    time.sleep(0.05)
+                    self.ypos = self.ypos + .157
+                    print(self.ypos)
+
+            elif self.ypos > goal:
+                GPIO.output(self.DirectionY,GPIO.LOW)
+                while self.ypos > goal:
+                    GPIO.output(self.StepY,GPIO.HIGH)
+                    time.sleep(0.1)
+                    GPIO.output(self.StepY,GPIO.LOW)
+                    time.sleep(0.05)
+                    self.ypos = self.ypos - .157
+                    print(self.ypos)
+
+            else:
+                pass
+        elif name == "Z"
+            print("Z Motor not enabled yet")
 
 
             

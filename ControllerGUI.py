@@ -11,6 +11,7 @@ import PartDatabase
 import Motors
 import UsSensor
 import Jetson.GPIO
+import time
 
 window = tk.Tk()
 filename = "ColorFiles/Default.png"
@@ -49,7 +50,7 @@ def goToPosXYZ():
 
 
 def goToPosX():
-    CGMotors.MotorGoTo(CGMotors.PORTX, entry_pos_x.get())
+    CGMotors.MotorGoTo(CGMotors.PORTX, int(entry_pos_x.get()))
 
 
 def goToPosY():
