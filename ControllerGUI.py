@@ -105,6 +105,8 @@ def resetColors():
 
 def getUsDistance():
     label_Us_Distance.configure(text = "The distance is " + str(CGUsSensor.USMeasure()) + " cm")
+def callReset():
+    CGMotors.move=False
 
 
 window.title('Controller Gui')
@@ -170,6 +172,9 @@ button_place_part = tk.Button(window, text="Press to place part with above color
 button_Us_Sensor = tk.Button(window, command = getUsDistance)
 label_Us_Distance = tk.Label(window, text = "Press to get distance obtained by Ultrasonic Sensor")
 
+#Stop Button
+button_stop = tk.Button(window, command = callReset, text = "reset to 0")
+
 # Locations of elements in grid:
 imageColor.grid(column=1, row=1)
 button_exit.grid(column=2, row=1)
@@ -209,6 +214,8 @@ button_place_part.grid(column=1, row=12)
 
 button_Us_Sensor.grid(column=2, row = 13)
 label_Us_Distance.grid(column=1, row = 13)
+
+button_stop.grid(column = 1, row = 14)
 
 # to show the window
 window.mainloop()
