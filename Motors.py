@@ -40,6 +40,8 @@ class Motors:
         #set state: GPIO.output(channel,state, intital = GPIO.HIGH  OR GPIO.LOW)
         #Read value (high or low): GPIO.input(channel)
 
+        self.move = True
+
 
 
     def goTo(self,locationList):
@@ -64,6 +66,7 @@ class Motors:
 
     def MotorGoTo(self,name,goal):
         #TODO Add low level motor stuff
+        self.move = True
 
         print("Motor " + str(name) + " is moving to " + str(goal))
         if name == "X":
@@ -81,7 +84,7 @@ class Motors:
                     GPIO.output(self.StepX,GPIO.LOW)
                     time.sleep(0.005)
                     self.xpos = self.xpos + .157
-                    if GPIO.input(self.ResetX) == GPIO.HIGH:
+                    if GPIO.input(self.ResetX) == GPIO.LOW:
                         self.xpos = 0
                         self.move = False
                     print(self.xpos)
@@ -95,11 +98,11 @@ class Motors:
                     GPIO.output(self.StepX,GPIO.LOW)
                     time.sleep(0.005)
                     self.xpos = self.xpos - .157
-                    if GPIO.input(self.ResetX) == GPIO.HIGH:
+                    if GPIO.input(self.ResetX) == GPIO.LOW:
                         self.xpos = 0
                         self.move = False
                     print(self.xpos)
-                self.move = true
+                self.move = True
 
             else:
                 pass
