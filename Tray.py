@@ -27,7 +27,7 @@ class Tray:
         pocket13 = Pocket.Pocket()
 
         #Locations will go with its parts once calculated
-
+        #Locations assume 0,0 is top left of Pocketnumbers.png/tray mechanism
         # Pocket 1 Parts
         pocket1.addNewPartData("Light Grey Crank", 2)
         pocket1.addNewPartData("Black Double Pin with Axle Hole", 2)
@@ -35,6 +35,7 @@ class Tray:
         pocket1.addNewPartData("Light Grey 3L Pin Connector 4 Pin", 2)
         pocket1.addNewPartData("Dark Grey Liftarm L 3x5 Quarter Ellipse", 4)
         pocket1.addNewPartData("Black Pulley Tire", 4)
+        pocket1.setLocation(80,80)
 
         # Pocket 2 Parts
         pocket2.addNewPartData("Light Grey Axle and Pin Connector Perpendicular", 20)
@@ -43,6 +44,7 @@ class Tray:
         pocket2.addNewPartData("Dark Grey 3L 2 Pin 1 Axle Perpendicular Connector", 4)
         pocket2.addNewPartData("Black Technic, Axle and Pin Connector Perpendicular", 8)
         pocket2.addNewPartData("Black Technic, Axle and Pin Connector 180 degrees", 2)
+        pocket2.setLocation(80,160)
 
         # Pocket 3 Parts
         pocket3.addNewPartData("Light Grey 8T Gear", 4)
