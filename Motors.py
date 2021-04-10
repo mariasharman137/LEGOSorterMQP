@@ -1,7 +1,12 @@
-#import Jetson.GPIO as GPIO
+import Jetson.GPIO as GPIO
 
 class Motors:
     def __init__(self):
+
+        #setting channel names
+        DirectionX = 19
+        StepX = 22
+
         #Assuming X is direction in which trays open/close
 
         #These are the ports for the motors which move things in the x,y,or z axis.
@@ -16,6 +21,17 @@ class Motors:
         #these are locations for when the part is being dropped
         self.DEFAULTX = 0
         self.DEFAULTY = 0
+
+        #Code to set up GPIO stuff
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(DirectionX, GPIO.OUT) #directionX
+        GPIO.setup(StepX, GPIO.OUT) #stepX
+
+        #Set state: GPIO.output(channel,state)
+        #set state: GPIO.output(channel,state, intital = GPIO.HIGH  OR GPIO.LOW)
+        #Read value (high or low): GPIO.input(channel)
+
+
 
     def goTo(self,locationList):
         goalx = int(locationList[0])

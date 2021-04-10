@@ -116,24 +116,24 @@ class TestFunctions:
         assert testTDb.trays[1].partsSum() == 1
 
     def testCnnDataArray():
-        testCNN = Cnn.Cnn();
-        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        testCNN = Cnn.Cnn()
+        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         results = testCNN.makeDataArray(testDirectory)
         print("results")
         print(results)
         print("Each array")
         print(np.dsplit(results, 13))
     def testCnnLabelList():
-        testCNN = Cnn.Cnn();
-        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        testCNN = Cnn.Cnn()
+        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         print(testCNN.makeLabelArray(testDirectory))
 
     def testPIimagesFromFolder():
         PI = PhI()
-        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         print(PI.imagesFromFolder(testDirectory))
     def testCNN():
-        testDirectory = r"C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         testCnn = Cnn.Cnn()
         testCnn.Train(testDirectory)
     def testPartsList():
@@ -157,7 +157,7 @@ class TestFunctions:
         #testPTP()
         #testTDb()
         #testCnnLabelList()
-        testCnnDataArray()
+        #testCnnDataArray()
         #testPIimagesFromFolder()
         #testCNN()
         #testPartsList()
