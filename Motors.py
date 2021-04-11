@@ -8,6 +8,7 @@ class Motors:
         self.DirectionX = 22
         self.StepX = 19
         self.ResetX = 21
+        
 
         #Assuming X is direction in which trays open/close
 
@@ -80,9 +81,9 @@ class Motors:
                 GPIO.output(self.DirectionX,GPIO.HIGH)
                 while self.xpos < goal and self.move == True:
                     GPIO.output(self.StepX,GPIO.HIGH)
-                    time.sleep(0.01)
+                    #time.sleep(0.01)
                     GPIO.output(self.StepX,GPIO.LOW)
-                    time.sleep(0.005)
+                    #time.sleep(0.005)
                     self.xpos = self.xpos + .157
                     if GPIO.input(self.ResetX) == GPIO.LOW:
                         self.xpos = 0
@@ -94,9 +95,9 @@ class Motors:
                 GPIO.output(self.DirectionX,GPIO.LOW)
                 while self.xpos > goal and self.move == True:
                     GPIO.output(self.StepX,GPIO.HIGH)
-                    time.sleep(0.01)
+                    #time.sleep(0.01)
                     GPIO.output(self.StepX,GPIO.LOW)
-                    time.sleep(0.005)
+                    #time.sleep(0.005)
                     self.xpos = self.xpos - .157
                     if GPIO.input(self.ResetX) == GPIO.LOW:
                         self.xpos = 0
