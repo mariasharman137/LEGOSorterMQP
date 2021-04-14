@@ -1,5 +1,10 @@
+import sys
+sys.path.append('/opt/nvidia/jetson-gpio/lib/python')
+sys.path.append('/opt/nvidia/jetson-gpio/lib/python/Jetson/GPIO')
+sys.path.append('/home/nvidia/repositories/nano_gpio/gpio_env/lib/python2.7/site-packages/periphery/')
 import Jetson.GPIO as GPIO
 import time
+from periphery import PWM
 
 class Motors:
     def __init__(self):
@@ -8,7 +13,8 @@ class Motors:
         self.DirectionX = 22
         self.StepX = 19
         self.ResetX = 21
-        
+        self.clockZ = 5
+        self.dataZ = 3
 
         #Assuming X is direction in which trays open/close
 
@@ -42,6 +48,9 @@ class Motors:
         #Read value (high or low): GPIO.input(channel)
 
         self.move = True
+
+        #setting up the PWM
+
 
 
 
