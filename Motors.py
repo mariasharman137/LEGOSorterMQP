@@ -4,17 +4,24 @@ sys.path.append('/opt/nvidia/jetson-gpio/lib/python/Jetson/GPIO')
 sys.path.append('/home/nvidia/repositories/nano_gpio/gpio_env/lib/python2.7/site-packages/periphery/')
 import Jetson.GPIO as GPIO
 import time
-from periphery import PWM
+#from periphery import PWM
+from pca9685_driver import Device
+
 
 class Motors:
     def __init__(self):
 
         #setting channel names
-        self.DirectionX = 22
-        self.StepX = 19
-        self.ResetX = 21
+        self.StepY = 22
+        self.DirectionY = 19
+        self.ResetY = 21
         self.clockZ = 5
         self.dataZ = 3
+        self.clawChannel = 0
+        self.emChannel = 1
+        self.StepX = 38
+        self.DirectionX = 40
+        self.ResetX = 36
 
         #Assuming X is direction in which trays open/close
 
@@ -39,6 +46,10 @@ class Motors:
         GPIO.setup(self.StepX, GPIO.OUT,initial=GPIO.LOW) #stepX
         GPIO.setup(self.ResetX, GPIO.IN)
 
+        GPIO.setup(self.DirectionY, GPIO.OUT,initial=GPIO.LOW) #directionX
+        GPIO.setup(self.StepY, GPIO.OUT,initial=GPIO.LOW) #stepX
+        GPIO.setup(self.ResetY, GPIO.IN)
+
         self.xpos = 0.0
         self.ypos = 0.0
         self.zpos = 0.0
@@ -49,10 +60,28 @@ class Motors:
 
         self.move = True
 
-        #setting up the PWM
+       
+        #working_devs = [1,2,3,4,5]
+        self.pca9685 = Device(0x40,1)
+        #self.pca9685.set_pwm_frequency(60)
+        # Set duty cycle
+        self.pca9685.set_pwm(0, 2047)
+
+        # set pwm freq
+        self.pca9685.set_pwm_frequency(50)
 
 
 
+
+
+    def set_duty_cycle(self, pwmdev, channel, dt):
+        """
+        @pwmdev a Device class object already configured
+        @channel Channel or PIN number in PCA9685 to configure 0-15
+        @dt desired duty cycle
+        """
+        val = (dt*4095)//100
+        pwmdev.set_pwm(channel,val)
 
     def goTo(self,locationList):
         goalx = int(locationList[0])
@@ -88,7 +117,7 @@ class Motors:
             #.157 mm / step
             if self.xpos < goal:
                 GPIO.output(self.DirectionX,GPIO.HIGH)
-                while self.xpos < goal and self.move == True:
+                while self.xpos < goal: #and self.move == True:
                     GPIO.output(self.StepX,GPIO.HIGH)
                     time.sleep(0.01)
                     GPIO.output(self.StepX,GPIO.LOW)
@@ -126,23 +155,31 @@ class Motors:
         #.157 mm / step
             if self.ypos < goal:
                 GPIO.output(self.DirectionY,GPIO.HIGH)
-                while self.ypos < goal:
+                while self.ypos < goal: #and self.move == True:
                     GPIO.output(self.StepY,GPIO.HIGH)
                     time.sleep(0.01)
                     GPIO.output(self.StepY,GPIO.LOW)
                     time.sleep(0.005)
                     self.ypos = self.ypos + .157
+                    if GPIO.input(self.ResetY) == GPIO.LOW:
+                        self.ypos = 0
+                        self.move = False
                     print(self.ypos)
+                self.move = True
 
-            elif self.ypos > goal:
+            elif self.ypos > goal :
                 GPIO.output(self.DirectionY,GPIO.LOW)
-                while self.ypos > goal:
+                while self.ypos > goal and self.move == True:
                     GPIO.output(self.StepY,GPIO.HIGH)
                     time.sleep(0.01)
                     GPIO.output(self.StepY,GPIO.LOW)
                     time.sleep(0.005)
                     self.ypos = self.ypos - .157
+                    if GPIO.input(self.ResetY) == GPIO.LOW:
+                        self.ypos = 0
+                        self.move = False
                     print(self.ypos)
+                self.move = True
 
             else:
                 pass
@@ -154,15 +191,25 @@ class Motors:
 
     def MagnetOn(self):
         print("Magnet turning on")
+        self.set_duty_cycle(self.pca9685,self.emChannel,100)
 
     def MagnetOff(self):
         print("Magnet turning off")
+        self.set_duty_cycle(self.pca9685,self.emChannel,0)
 
     def dropPart(self):
         print("Dropping part")
 
     def openClaw(self):
         print("Opening claw")
+        self.set_duty_cycle(self.pca9685,self.clawChannel,2)
+
+    def neutralClaw(self):
+        print("Opening claw")
+        self.set_duty_cycle(self.pca9685,self.clawChannel,6)
+
 
     def closeClaw(self):
         print("Closing claw")
+        self.set_duty_cycle(self.pca9685,self.clawChannel,10)
+

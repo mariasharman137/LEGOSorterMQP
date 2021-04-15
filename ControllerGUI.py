@@ -54,11 +54,11 @@ def goToPosX():
 
 
 def goToPosY():
-    CGMotors.MotorGoTo(CGMotors.PORTY, entry_pos_y.get())
+    CGMotors.MotorGoTo(CGMotors.PORTY, int(entry_pos_y.get()))
 
 
 def goToPosZ():
-    CGMotors.MotorGoTo(CGMotors.PORTZ, entry_pos_z.get())
+    CGMotors.MotorGoTo(CGMotors.PORTZ, int(entry_pos_z.get()))
 
 
 def turnOnMagnet():
@@ -82,12 +82,23 @@ def openClaw():
     CGMotors.openClaw()
     button_open_claw.configure(bg="light green")
     button_close_claw.configure(bg="red")
+    button_neutral_claw.configure(bg="red")
+
+
+def neutralClaw():
+    CGMotors.neutralClaw()
+    button_open_claw.configure(bg="red")
+    button_close_claw.configure(bg="red")
+    button_neutral_claw.configure(bg="light green")
+
 
 
 def closeClaw():
     CGMotors.closeClaw()
     button_close_claw.configure(bg="light green")
     button_open_claw.configure(bg="red")
+    button_neutral_claw.configure(bg="red")
+
 
 
 def placePart():
@@ -162,6 +173,9 @@ button_open_claw = tk.Button(window, text="Open Claw", command=openClaw)
 # button to close claw
 button_close_claw = tk.Button(window, text="Close Claw", command=closeClaw)
 
+#button to neutral claw
+button_neutral_claw = tk.Button(window, text = "Middle Pos Claw", command = neutralClaw)
+
 # Reset Button Colors
 button_reset_colors = tk.Button(window, text="Reset CGui Colors", command=resetColors)
 
@@ -206,6 +220,7 @@ button_magnet_off.grid(column=2, row=9)
 
 button_open_claw.grid(column=1, row=10)
 button_close_claw.grid(column=2, row=10)
+button_neutral_claw.grid(column = 3, row = 10)
 
 button_part_drop.grid(column=1, row=11)
 button_reset_colors.grid(column=2, row=11)
