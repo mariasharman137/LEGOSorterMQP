@@ -220,17 +220,17 @@ button_magnet_off.grid(column=2, row=9)
 
 button_open_claw.grid(column=1, row=10)
 button_close_claw.grid(column=2, row=10)
-button_neutral_claw.grid(column = 3, row = 10)
+button_neutral_claw.grid(column = 1, row = 11)
 
-button_part_drop.grid(column=1, row=11)
-button_reset_colors.grid(column=2, row=11)
+button_part_drop.grid(column=1, row=12)
+button_reset_colors.grid(column=2, row=12)
 
-button_place_part.grid(column=1, row=12)
+button_place_part.grid(column=1, row=13)
 
-button_Us_Sensor.grid(column=2, row = 13)
-label_Us_Distance.grid(column=1, row = 13)
+button_Us_Sensor.grid(column=2, row = 14)
+label_Us_Distance.grid(column=1, row = 14)
 
-button_stop.grid(column = 1, row = 14)
+button_stop.grid(column = 1, row = 15)
 
 # to show the window
 window.mainloop()
