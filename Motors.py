@@ -200,6 +200,7 @@ class Motors:
     def dropPart(self):
         print("Dropping part")
 
+#Flaps are 2 inches wide
     def openClaw(self):
         print("Opening claw")
         self.set_duty_cycle(self.pca9685,self.clawChannel,2)
