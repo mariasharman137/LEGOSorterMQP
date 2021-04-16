@@ -92,13 +92,11 @@ def neutralClaw():
     button_neutral_claw.configure(bg="light green")
 
 
-
 def closeClaw():
     CGMotors.closeClaw()
     button_close_claw.configure(bg="light green")
     button_open_claw.configure(bg="red")
     button_neutral_claw.configure(bg="red")
-
 
 
 def placePart():
@@ -114,10 +112,17 @@ def resetColors():
     button_open_claw.configure(bg="white")
     button_part_drop.configure(bg="white")
 
+
 def getUsDistance():
-    label_Us_Distance.configure(text = "The distance is " + str(CGUsSensor.USMeasure()) + " cm")
+    label_Us_Distance.configure(text="The distance is " + str(CGUsSensor.USMeasure()) + " cm")
+
+
 def callReset():
-    CGMotors.move=False
+    CGMotors.move = False
+
+
+def percentClaw():
+    CGMotors.openClawPercent(int(entry_percent_claw.get()))
 
 
 window.title('Controller Gui')
@@ -173,8 +178,12 @@ button_open_claw = tk.Button(window, text="Open Claw", command=openClaw)
 # button to close claw
 button_close_claw = tk.Button(window, text="Close Claw", command=closeClaw)
 
-#button to neutral claw
-button_neutral_claw = tk.Button(window, text = "Middle Pos Claw", command = neutralClaw)
+# button to neutral claw
+button_neutral_claw = tk.Button(window, text="Middle Pos Claw", command=neutralClaw)
+
+# field and button to open claw to a certain percent
+entry_percent_claw = tk.Entry(window, justify="center")
+button_percent_claw = tk.Button(window, text="Press to make claw open to this percent", command=percentClaw)
 
 # Reset Button Colors
 button_reset_colors = tk.Button(window, text="Reset CGui Colors", command=resetColors)
@@ -183,11 +192,11 @@ button_reset_colors = tk.Button(window, text="Reset CGui Colors", command=resetC
 button_place_part = tk.Button(window, text="Press to place part with above color and shape", command=placePart)
 
 # Get Distance
-button_Us_Sensor = tk.Button(window, command = getUsDistance)
-label_Us_Distance = tk.Label(window, text = "Press to get distance obtained by Ultrasonic Sensor")
+button_Us_Sensor = tk.Button(window, command=getUsDistance)
+label_Us_Distance = tk.Label(window, text="Press to get distance obtained by Ultrasonic Sensor")
 
-#Stop Button
-button_stop = tk.Button(window, command = callReset, text = "reset to 0")
+# Stop Button
+button_stop = tk.Button(window, command=callReset, text="reset to 0")
 
 # Locations of elements in grid:
 imageColor.grid(column=1, row=1)
@@ -220,17 +229,17 @@ button_magnet_off.grid(column=2, row=9)
 
 button_open_claw.grid(column=1, row=10)
 button_close_claw.grid(column=2, row=10)
-button_neutral_claw.grid(column = 1, row = 11)
+button_neutral_claw.grid(column=1, row=11)
 
 button_part_drop.grid(column=1, row=12)
 button_reset_colors.grid(column=2, row=12)
 
 button_place_part.grid(column=1, row=13)
 
-button_Us_Sensor.grid(column=2, row = 14)
-label_Us_Distance.grid(column=1, row = 14)
+button_Us_Sensor.grid(column=2, row=14)
+label_Us_Distance.grid(column=1, row=14)
 
-button_stop.grid(column = 1, row = 15)
+button_stop.grid(column=1, row=15)
 
 # to show the window
 window.mainloop()
