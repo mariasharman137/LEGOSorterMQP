@@ -81,7 +81,7 @@ class Motors:
         @channel Channel or PIN number in PCA9685 to configure 0-15
         @dt desired duty cycle
         """
-        val = (dt * 4095) // 100
+        val = (int((dt * 4095) // 100))
         pwmdev.set_pwm(channel, val)
 
     def goTo(self, locationList,pocketNumber):
@@ -209,15 +209,15 @@ class Motors:
     # Flaps are 2 inches wide
     def openClaw(self):
         print("Opening claw")
-        self.set_duty_cycle(self.pca9685, self.clawChannel, 5)
+        self.set_duty_cycle(self.pca9685, self.clawChannel, 3.7)
 
     def neutralClaw(self):
         print("Opening claw")
-        self.set_duty_cycle(self.pca9685, self.clawChannel, 7)
+        self.set_duty_cycle(self.pca9685, self.clawChannel, 6.85)
 
     def closeClaw(self):
         print("Closing claw")
-        self.set_duty_cycle(self.pca9685, self.clawChannel, 10)
+        self.set_duty_cycle(self.pca9685, self.clawChannel, 9)
 
     def openClawPercent(self, percent):
         print("opening claw " + percent + " %")
