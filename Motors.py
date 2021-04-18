@@ -5,6 +5,7 @@ sys.path.append('/opt/nvidia/jetson-gpio/lib/python/Jetson/GPIO')
 sys.path.append('/home/nvidia/repositories/nano_gpio/gpio_env/lib/python2.7/site-packages/periphery/')
 import Jetson.GPIO as GPIO
 import time
+import math
 # from periphery import PWM
 from pca9685_driver import Device
 
@@ -210,3 +211,9 @@ class Motors:
         print("opening claw " + percent + " %")
         DCValue = percent * 8 + 2
         self.set_duty_cycle(self.pca9685, self.clawChannel, DCValue)
+
+    def openClawWidth(self,width):
+        print("opening claw to a width of " + str(width) + " mm")
+        widthPow = (int((16/math.pi)*(math.acos((-1*width/89) + (45/44.5))+2)))-10
+        print("duty cycle is " + str(widthPow))
+        self.set_duty_cycle(self.pca9685, self.clawChannel, widthPow)

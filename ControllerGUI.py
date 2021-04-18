@@ -124,6 +124,9 @@ def callReset():
 def percentClaw():
     CGMotors.openClawPercent(int(entry_percent_claw.get()))
 
+def widthClaw():
+    CGMotors.openClawWidth(int(entry_claw_width.get()))
+
 
 window.title('Controller Gui')
 window.geometry("950x540")
@@ -198,6 +201,11 @@ label_Us_Distance = tk.Label(window, text="Press to get distance obtained by Ult
 # Stop Button
 button_stop = tk.Button(window, command=callReset, text="reset to 0")
 
+#Claw Width entry and button
+button_claw_width = tk.Button(window, command = widthClaw, text = "Click to make claw open to the entered width in mm")
+entry_claw_width = tk.Entry(window, justify = "center")
+
+
 # Locations of elements in grid:
 imageColor.grid(column=1, row=1)
 button_exit.grid(column=2, row=1)
@@ -239,7 +247,10 @@ button_place_part.grid(column=1, row=13)
 button_Us_Sensor.grid(column=2, row=14)
 label_Us_Distance.grid(column=1, row=14)
 
-button_stop.grid(column=1, row=15)
+button_claw_width.grid(column = 1, row = 15)
+entry_claw_width.grid(column = 2, row = 15)
+
+button_stop.grid(column=1, row=16)
 
 # to show the window
 window.mainloop()
