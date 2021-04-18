@@ -111,6 +111,8 @@ def resetColors():
     button_close_claw.configure(bg="white")
     button_open_claw.configure(bg="white")
     button_part_drop.configure(bg="white")
+    button_percent_claw.configure(bg="white")
+    button_neutral_claw.configure(bg = "white")
 
 
 def getUsDistance():

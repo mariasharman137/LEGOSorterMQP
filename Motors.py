@@ -221,7 +221,7 @@ class Motors:
 
     def openClawPercent(self, percent):
         print("opening claw " + percent + " %")
-        DCValue = percent * 8 + 2
+        DCValue = percent * 5 + 5
         self.set_duty_cycle(self.pca9685, self.clawChannel, DCValue)
 
     def openClawWidth(self,width):

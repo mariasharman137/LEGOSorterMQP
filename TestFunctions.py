@@ -118,25 +118,28 @@ class TestFunctions:
 
     def testCnnDataArray():
         testCNN = Cnn.Cnn()
-        #testDirectory = "C:/Users/phili/LEGOSorterMQP/ColorFiles"
-        results = testCNN.makeDataArray(testDirectory)
+        #testDirectory = ""
+        results = testCNN.makeDataArray("C:/Users/phili/LEGOSorterMQP/ColorFiles")
         print("results")
         print(results)
         print("Each array")
         print(np.dsplit(results, 13))
+
     def testCnnLabelList():
         testCNN = Cnn.Cnn()
         # testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
-        print(testCNN.makeLabelArray(testDirectory))
+        print(testCNN.makeLabelArray("C:/Users/phili/LEGOSorterMQP/ColorFiles"))
 
     def testPIimagesFromFolder():
         PI = PhI()
         # testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
-        print(PI.imagesFromFolder(testDirectory))
+        print(PI.imagesFromFolder("C:/Users/phili/LEGOSorterMQP/ColorFiles"))
+
     def testCNN():
         # testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         testCnn = Cnn.Cnn()
-        testCnn.Train(testDirectory)
+        testCnn.Train("C:/Users/phili/LEGOSorterMQP/ColorFiles")
+
     def testPartsList():
         testPDb = PDb.PartDatabase()
         print(testPDb.partsList)
@@ -144,6 +147,7 @@ class TestFunctions:
     def testClawOpenWidth():
         testMotors = Motors.Motors()
         testMotors.openClawWidth(testMotors.CWL.getWidth(5))
+        assert testMotors.CWL.getWidth(5) == 40
 
 
     if __name__ == "__main__":
