@@ -6,12 +6,16 @@ sys.path.append('/home/nvidia/repositories/nano_gpio/gpio_env/lib/python2.7/site
 import Jetson.GPIO as GPIO
 import time
 import math
+import clawWidthList
 # from periphery import PWM
 from pca9685_driver import Device
 
 
 class Motors:
     def __init__(self):
+
+        #importing needed data
+        self.CWL = clawWidthList.clawWidthList()
 
         # setting channel names
         self.StepY = 22
@@ -80,22 +84,30 @@ class Motors:
         val = (dt * 4095) // 100
         pwmdev.set_pwm(channel, val)
 
-    def goTo(self, locationList):
+    def goTo(self, locationList,pocketNumber):
         goalx = int(locationList[0])
         goaly = int(locationList[1])
         goalz = int(locationList[2])
-
+        #close tray
         self.MagnetOn()
         self.MotorGoTo(self.PORTY, self.DEFAULTY)
         self.MagnetOff()
+
+        #go to position to pick up part
         self.MotorGoTo(self.PORTX, self.DEFAULTX)
         self.dropPart()
+
+        #Go to the part's location
         self.MotorGoTo(self.PORTZ, goalz)
         self.MagnetOn()
         self.MotorGoTo(self.PORTY, goaly)
         self.MotorGoTo(self.PORTX, goalx)
-        self.openClaw()
+
+        #put part in the pocket
+        self.openClawWidth(self.CWL.getWidth(pocketNumber))
         self.closeClaw()
+
+        #Turn of magnet between rounds to pevent overheating
         self.MagnetOff()
 
         # Robot will return to default position next time code is run
@@ -112,9 +124,9 @@ class Motors:
             # Circ = 47.23 mm
             # 300 steps per circumference
             # .157 mm / step
-            if self.xpos < goal:
+            if self.xpos < goal and goal < 180:
                 GPIO.output(self.DirectionX, GPIO.HIGH)
-                while self.xpos < goal:  # and self.move == True:
+                while self.xpos < goal and self.move == True:
                     GPIO.output(self.StepX, GPIO.HIGH)
                     time.sleep(0.01)
                     GPIO.output(self.StepX, GPIO.LOW)
@@ -150,9 +162,9 @@ class Motors:
             # Circ = 47.23 mm
             # 300 steps per circumference
             # .157 mm / step
-            if self.ypos < goal:
+            if self.ypos < goal and goal < 370:
                 GPIO.output(self.DirectionY, GPIO.HIGH)
-                while self.ypos < goal:  # and self.move == True:
+                while self.ypos < goal   and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
                     time.sleep(0.01)
                     GPIO.output(self.StepY, GPIO.LOW)

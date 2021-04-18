@@ -9,6 +9,7 @@ import Pocket
 import TrayDB
 import PartToPocket
 import Cnn
+import Motors
 
 
 # noinspection PyMethodParameters
@@ -117,7 +118,7 @@ class TestFunctions:
 
     def testCnnDataArray():
         testCNN = Cnn.Cnn()
-        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        #testDirectory = "C:/Users/phili/LEGOSorterMQP/ColorFiles"
         results = testCNN.makeDataArray(testDirectory)
         print("results")
         print(results)
@@ -125,20 +126,25 @@ class TestFunctions:
         print(np.dsplit(results, 13))
     def testCnnLabelList():
         testCNN = Cnn.Cnn()
-        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        # testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         print(testCNN.makeLabelArray(testDirectory))
 
     def testPIimagesFromFolder():
         PI = PhI()
-        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        # testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         print(PI.imagesFromFolder(testDirectory))
     def testCNN():
-        testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
+        # testDirectory = "C:\Users\phili\LEGOSorterMQP\ColorFiles"
         testCnn = Cnn.Cnn()
         testCnn.Train(testDirectory)
     def testPartsList():
         testPDb = PDb.PartDatabase()
         print(testPDb.partsList)
+
+    def testClawOpenWidth():
+        testMotors = Motors.Motors()
+        testMotors.openClawWidth(testMotors.CWL.getWidth(5))
+
 
     if __name__ == "__main__":
         # testphotoToArray()
@@ -161,4 +167,5 @@ class TestFunctions:
         #testPIimagesFromFolder()
         #testCNN()
         #testPartsList()
+        testClawOpenWidth()
         print("Everything passed")

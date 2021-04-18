@@ -15,6 +15,7 @@ class Pocket:
         self.maxParts = []
         self.currParts = []
         self.motors = Motors.Motors()
+        self.name = 0
 
 
     def setLocation(self, x, y):
@@ -59,7 +60,7 @@ class Pocket:
                     print("Part added is:" + str(self.currParts[index].partName))
                     print("Amount is " + str(self.currParts[index].num)+"\n\n")
                     destination = [self.location.x, self.location.y, height]
-                    self.motors.goTo(destination)
+                    self.motors.goTo(destination,self.name)
                     return
         else:
             print("Part does not belong in this pocket\n\n")
@@ -69,3 +70,5 @@ class Pocket:
         for item in self.currParts:
             sum = sum + item.num
         return sum
+    def addName(self,name):
+        self.name = name
