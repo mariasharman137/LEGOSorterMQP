@@ -68,12 +68,13 @@ class Motors:
 
         # working_devs = [1,2,3,4,5]
         self.pca9685 = Device(0x40, 1)
-        # self.pca9685.set_pwm_frequency(60)
         # Set duty cycle
         self.pca9685.set_pwm(0, 2047)
 
         # set pwm freq
         self.pca9685.set_pwm_frequency(50)
+
+        self.stepFrac = 1
 
     def set_duty_cycle(self, pwmdev, channel, dt):
         """
@@ -128,13 +129,13 @@ class Motors:
                 GPIO.output(self.DirectionX, GPIO.HIGH)
                 while self.xpos < goal and self.move == True:
                     GPIO.output(self.StepX, GPIO.HIGH)
-                    time.sleep(0.01)
+                    time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepX, GPIO.LOW)
-                    time.sleep(0.005)
-                    self.xpos = self.xpos + .157
-                    if GPIO.input(self.ResetX) == GPIO.LOW:
-                        self.xpos = 0
-                        self.move = False
+                    time.sleep(0.002/self.stepFrac)
+                    self.xpos = self.xpos + .157/self.stepFrac
+                    #if GPIO.input(self.ResetX) == GPIO.LOW:
+                        #self.xpos = 0
+                        #self.move = False
                     print(self.xpos)
                 self.move = True
 
@@ -142,10 +143,10 @@ class Motors:
                 GPIO.output(self.DirectionX, GPIO.LOW)
                 while self.xpos > goal and self.move == True:
                     GPIO.output(self.StepX, GPIO.HIGH)
-                    time.sleep(0.01)
+                    time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepX, GPIO.LOW)
-                    time.sleep(0.005)
-                    self.xpos = self.xpos - .157
+                    time.sleep(0.002/self.stepFrac)
+                    self.xpos = self.xpos - .157/self.stepFrac
                     if GPIO.input(self.ResetX) == GPIO.LOW:
                         self.xpos = 0
                         self.move = False
@@ -164,15 +165,15 @@ class Motors:
             # .157 mm / step
             if self.ypos < goal and goal < 370:
                 GPIO.output(self.DirectionY, GPIO.HIGH)
-                while self.ypos < goal   and self.move == True:
+                while self.ypos < goal and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
-                    time.sleep(0.01)
+                    time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepY, GPIO.LOW)
-                    time.sleep(0.005)
-                    self.ypos = self.ypos + .157
-                    if GPIO.input(self.ResetY) == GPIO.LOW:
-                        self.ypos = 0
-                        self.move = False
+                    time.sleep(0.002/self.stepFrac)
+                    self.ypos = self.ypos + .157/self.stepFrac
+                    #if GPIO.input(self.ResetY) == GPIO.LOW:
+                        #self.ypos = 0
+                        #self.move = False
                     print(self.ypos)
                 self.move = True
 
@@ -180,10 +181,10 @@ class Motors:
                 GPIO.output(self.DirectionY, GPIO.LOW)
                 while self.ypos > goal and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
-                    time.sleep(0.01)
+                    time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepY, GPIO.LOW)
-                    time.sleep(0.005)
-                    self.ypos = self.ypos - .157
+                    time.sleep(0.002/self.stepFrac)
+                    self.ypos = self.ypos - .157/self.stepFrac
                     if GPIO.input(self.ResetY) == GPIO.LOW:
                         self.ypos = 0
                         self.move = False
@@ -202,7 +203,7 @@ class Motors:
     def MagnetOff(self):
         print("Magnet turning off")
         self.set_duty_cycle(self.pca9685, self.emChannel, 0)
-
+ 
     def dropPart(self):
         print("Dropping part")
 
@@ -212,7 +213,7 @@ class Motors:
         self.set_duty_cycle(self.pca9685, self.clawChannel, 3.7)
 
     def neutralClaw(self):
-        print("Opening claw")
+        print("Opening claw neutral")
         self.set_duty_cycle(self.pca9685, self.clawChannel, 6.85)
 
     def closeClaw(self):
@@ -226,6 +227,6 @@ class Motors:
 
     def openClawWidth(self,width):
         print("opening claw to a width of " + str(width) + " mm")
-        widthPow = (int((10/math.pi)*(math.acos((-1*width/89) + (45/44.5))+5)))-10
+        widthPow = (((8.6/math.pi)*(math.acos((-1*width/89) + (45/44.5))+3.7)))-7
         print("duty cycle is " + str(widthPow))
         self.set_duty_cycle(self.pca9685, self.clawChannel, widthPow)

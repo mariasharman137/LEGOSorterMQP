@@ -19,11 +19,8 @@ class UsSensor:
         GPIO.output(self.USTrig,GPIO.HIGH)
         time.sleep(.00001)
         GPIO.output(self.USTrig,GPIO.LOW)
-        #wait for return signal
-        while GPIO.input(self.USEcho) == GPIO.LOW:
-            time.sleep(.00000000001python)
-            #print("Waiting for response")
-        
+       
+        GPIO.wait_for_edge(self.USEcho,GPIO.RISING)
         time1 = time.perf_counter()
         #end timer
         print("Echo recieved")
