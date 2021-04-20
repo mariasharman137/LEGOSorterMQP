@@ -236,23 +236,34 @@ class Motors:
         xdir = 2
         zdir = 2
         if self.xpos > goalx:
-            xdir = 1
+            xdir = -1
             GPIO.output(self.DirectionX, GPIO.LOW)
         elif self.xpos < goalx:
-            xdir = -1
+            xdir = 1
             GPIO.output(self.DirectionX, GPIO.LOW)
         else:
             xdir = 0
 
         if self.zpos > goalz:
-            zdir = 1
-        elif self.zpos < goalz:
             zdir = -1
+        elif self.zpos < goalz:
+            zdir = 1
         else:
             zdir = 0
 
         while done == False:
             if (self.xpos + .1 < goalx or self.xpos - .1 > goalx) and (self.xpos + 1 < goalx or self.xpos - 1 > goalx):
                 done == True
+            if  not (self.xpos + 1 < goalx or self.xpos - 1 > goalx):
+                self.xpos = self.xpos + xdir * .157/self.stepFrac
+                GPIO.output(self.StepX, GPIO.HIGH)
+                time.sleep(0.002 / self.stepFrac)
+                GPIO.output(self.StepX, GPIO.LOW)
+                time.sleep(0.002 / self.stepFrac)
+            #elif (not (self.xpos + .1 < goalx or self.xpos - .1 > goalx)) :
+                #zpos = USReading
+                #set direction pin to the correct direction
+                #Set dutycycle to value deterined by controller
+
 
 
