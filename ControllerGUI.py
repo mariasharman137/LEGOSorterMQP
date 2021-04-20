@@ -116,7 +116,7 @@ def resetColors():
 
 
 def getUsDistance():
-    label_Us_Distance.configure(text="The distance is " + str(CGUsSensor.USMeasure()) + " cm")
+    label_Us_Distance.configure(text="The distance is " + str(CGUsSensor.USMeasure()) + " mm")
 
 
 def callReset():

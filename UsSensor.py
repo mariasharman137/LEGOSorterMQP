@@ -4,8 +4,8 @@ import time
 
 class UsSensor:
     def __init__(self):
-        self.USTrig = 38
-        self.USEcho = 40
+        self.USTrig = 7
+        self.USEcho = 12 #Moved from 8 to 12
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.USTrig, GPIO.OUT, initial = GPIO.LOW)
         GPIO.setup(self.USEcho, GPIO.IN)
@@ -19,14 +19,17 @@ class UsSensor:
         GPIO.output(self.USTrig,GPIO.HIGH)
         time.sleep(.00001)
         GPIO.output(self.USTrig,GPIO.LOW)
-        #wait for return signal
-        while GPIO.input(self.USEcho) == GPIO.LOW:
-            time1 = time.perf_counter
-            print("Waiting for response")
+       
+        GPIO.wait_for_edge(self.USEcho,GPIO.RISING)
+        time1 = time.perf_counter()
         #end timer
+        print("Echo recieved")
+        print("start time:" + str(time0))
+        print("end time:" + str(time1))
         ttime = time1-time0
         uttime = ttime *1000000
         deltatime = uttime/5.8
+        print(str(deltatime) + " mm")
         return deltatime
         
         #deltatime(us) / 58 = dist in cm
