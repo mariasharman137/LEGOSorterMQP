@@ -229,3 +229,29 @@ class Motors:
         widthPow = (int((10/math.pi)*(math.acos((-1*width/89) + (45/44.5))+5)))-10
         print("duty cycle is " + str(widthPow))
         self.set_duty_cycle(self.pca9685, self.clawChannel, widthPow)
+
+    def MotorGoToXZ(self,goalx,goalz):
+        done = False
+        xdir = 2
+        zdir = 2
+        if self.xpos > goalx:
+            xdir = 1
+            GPIO.output(self.DirectionX, GPIO.LOW)
+        elif self.xpos < goalx:
+            xdir = -1
+            GPIO.output(self.DirectionX, GPIO.LOW)
+        else:
+            xdir = 0
+
+        if self.zpos > goalz:
+            zdir = 1
+        elif self.zpos < goalz:
+            zdir = -1
+        else:
+            zdir = 0
+
+        while done == False:
+            if (self.xpos + .1 < goalx or self.xpos - .1 > goalx) and (self.xpos + 1 < goalx or self.xpos - 1 > goalx):
+                done == True
+
+
