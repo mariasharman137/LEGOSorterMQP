@@ -248,7 +248,7 @@ class Motors:
     # Flaps are 2 inches wide
     def openClaw(self):
         print("Opening claw")
-        self.set_duty_cycle(self.pca9685, self.clawChannel, 3.7)
+        self.set_duty_cycle(self.pca9685, self.clawChannel, 4)
 
     def neutralClaw(self):
         print("Opening claw neutral")
@@ -256,7 +256,7 @@ class Motors:
 
     def closeClaw(self):
         print("Closing claw")
-        self.set_duty_cycle(self.pca9685, self.clawChannel, 12)
+        self.set_duty_cycle(self.pca9685, self.clawChannel, 8.5)
 
     def openClawPercent(self, percent):
         print("opening claw " + percent + " %")

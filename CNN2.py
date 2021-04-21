@@ -4,6 +4,7 @@ from numpy import argmax
 from pandas import read_csv
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
+import torch
 from torch import Tensor
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
@@ -16,7 +17,7 @@ from torch.optim import SGD
 from torch.nn import CrossEntropyLoss
 from torch.nn.init import kaiming_uniform_
 from torch.nn.init import xavier_uniform_
-
+#76 total items in the dataset
 
 # dataset definition
 class CSVDataset(Dataset):
@@ -55,17 +56,21 @@ class MLP(Module):
     def __init__(self, n_inputs):
         super(MLP, self).__init__()
         # input to first hidden layer
-        self.hidden1 = Linear(n_inputs, 10)
+        self.hidden1 = Linear(n_inputs, 2500)
         kaiming_uniform_(self.hidden1.weight, nonlinearity='relu')
         self.act1 = ReLU()
         # second hidden layer
-        self.hidden2 = Linear(10, 8)
+        self.hidden2 = Linear(2500, 1000)
         kaiming_uniform_(self.hidden2.weight, nonlinearity='relu')
         self.act2 = ReLU()
         # third hidden layer and output
-        self.hidden3 = Linear(8, 3)
+        #second number in linear is output, want this to match total available shapes amount
+        self.hidden3 = Linear(1000, 300)
+        kaiming_uniform_(self.hidden2.weight, nonlinearity='relu')
+        self.act3 = ReLU()
+        self.hidden4 = Linear(300, 76)
         xavier_uniform_(self.hidden3.weight)
-        self.act3 = Softmax(dim=1)
+        self.act4 = Softmax(dim=1)
 
     # forward propagate input
     def forward(self, X):
@@ -75,9 +80,12 @@ class MLP(Module):
         # second hidden layer
         X = self.hidden2(X)
         X = self.act2(X)
-        # output layer
+        # third hidden layer
         X = self.hidden3(X)
         X = self.act3(X)
+        # output layer
+        X = self.hidden4(X)
+        X = self.act4(X)
         return X
 
 
@@ -149,10 +157,13 @@ def predict(row, model):
 
 
 # prepare the data
+# Will want to replace path with data location
+# Then resize images into 50x50, and then flatten, and input into system
 path = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv'
 train_dl, test_dl = prepare_data(path)
 print(len(train_dl.dataset), len(test_dl.dataset))
 # define the network
+#4 is the number of inputs here
 model = MLP(4)
 # train the model
 train_model(train_dl, model)
