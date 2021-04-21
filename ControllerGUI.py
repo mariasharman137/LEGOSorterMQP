@@ -130,7 +130,7 @@ def widthClaw():
     CGMotors.openClawWidth(int(entry_claw_width.get()))
 
 def goToPosXZ():
-    CGMotors.MotorGoToXZ(float(entry_pos_x.get(), float(entry_pos_z.get())))
+    CGMotors.MotorGoToXZ(float(entry_pos_x.get()), float(entry_pos_z.get()))
 
 
 window.title('Controller Gui')
