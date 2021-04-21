@@ -1,14 +1,147 @@
-# pytorch mlp for multiclass classification
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+# pytorch cnn for multiclass classification
 from numpy import vstack
 from numpy import argmax
 from pandas import read_csv
-from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
-import torch
-from torch import Tensor
-from torch.utils.data import Dataset
+from torchvision.datasets import MNIST
+from torchvision.transforms import Compose
+from torchvision.transforms import ToTensor
+from torchvision.transforms import Normalize
 from torch.utils.data import DataLoader
-from torch.utils.data import random_split
+from torch.nn import Conv2d
+from torch.nn import MaxPool2d
 from torch.nn import Linear
 from torch.nn import ReLU
 from torch.nn import Softmax
@@ -17,59 +150,32 @@ from torch.optim import SGD
 from torch.nn import CrossEntropyLoss
 from torch.nn.init import kaiming_uniform_
 from torch.nn.init import xavier_uniform_
-#76 total items in the dataset
-
-# dataset definition
-class CSVDataset(Dataset):
-    # load the dataset
-    def __init__(self, path):
-        # load the csv file as a dataframe
-        df = read_csv(path, header=None)
-        # store the inputs and outputs
-        self.X = df.values[:, :-1]
-        self.y = df.values[:, -1]
-        # ensure input data is floats
-        self.X = self.X.astype('float32')
-        # label encode target and ensure the values are floats
-        self.y = LabelEncoder().fit_transform(self.y)
-
-    # number of rows in the dataset
-    def __len__(self):
-        return len(self.X)
-
-    # get a row at an index
-    def __getitem__(self, idx):
-        return [self.X[idx], self.y[idx]]
-
-    # get indexes for train and test rows
-    def get_splits(self, n_test=0.33):
-        # determine sizes
-        test_size = round(n_test * len(self.X))
-        train_size = len(self.X) - test_size
-        # calculate the split
-        return random_split(self, [train_size, test_size])
 
 
 # model definition
-class MLP(Module):
+class CNN(Module):
     # define model elements
-    def __init__(self, n_inputs):
-        super(MLP, self).__init__()
+    def __init__(self, n_channels):
+        super(CNN, self).__init__()
         # input to first hidden layer
-        self.hidden1 = Linear(n_inputs, 2500)
+        self.hidden1 = Conv2d(n_channels, 32, (3, 3))
         kaiming_uniform_(self.hidden1.weight, nonlinearity='relu')
         self.act1 = ReLU()
+        # first pooling layer
+        self.pool1 = MaxPool2d((2, 2), stride=(2, 2))
         # second hidden layer
-        self.hidden2 = Linear(2500, 1000)
+        self.hidden2 = Conv2d(32, 32, (3, 3))
         kaiming_uniform_(self.hidden2.weight, nonlinearity='relu')
         self.act2 = ReLU()
-        # third hidden layer and output
-        #second number in linear is output, want this to match total available shapes amount
-        self.hidden3 = Linear(1000, 300)
-        kaiming_uniform_(self.hidden2.weight, nonlinearity='relu')
+        # second pooling layer
+        self.pool2 = MaxPool2d((2, 2), stride=(2, 2))
+        # fully connected layer
+        self.hidden3 = Linear(5 * 5 * 32, 100)
+        kaiming_uniform_(self.hidden3.weight, nonlinearity='relu')
         self.act3 = ReLU()
-        self.hidden4 = Linear(300, 76)
-        xavier_uniform_(self.hidden3.weight)
+        # output layer
+        self.hidden4 = Linear(100, 10)
+        xavier_uniform_(self.hidden4.weight)
         self.act4 = Softmax(dim=1)
 
     # forward propagate input
@@ -77,9 +183,13 @@ class MLP(Module):
         # input to first hidden layer
         X = self.hidden1(X)
         X = self.act1(X)
+        X = self.pool1(X)
         # second hidden layer
         X = self.hidden2(X)
         X = self.act2(X)
+        X = self.pool2(X)
+        # flatten
+        X = X.view(-1, 4 * 4 * 50)
         # third hidden layer
         X = self.hidden3(X)
         X = self.act3(X)
@@ -91,12 +201,13 @@ class MLP(Module):
 
 # prepare the dataset
 def prepare_data(path):
-    # load the dataset
-    dataset = CSVDataset(path)
-    # calculate split
-    train, test = dataset.get_splits()
+    # define standardization
+    trans = Compose([ToTensor(), Normalize((0.1307,), (0.3081,))])
+    # load dataset
+    train = MNIST(path, train=True, download=True, transform=trans)
+    test = MNIST(path, train=False, download=True, transform=trans)
     # prepare data loaders
-    train_dl = DataLoader(train, batch_size=32, shuffle=True)
+    train_dl = DataLoader(train, batch_size=64, shuffle=True)
     test_dl = DataLoader(test, batch_size=1024, shuffle=False)
     return train_dl, test_dl
 
@@ -107,7 +218,7 @@ def train_model(train_dl, model):
     criterion = CrossEntropyLoss()
     optimizer = SGD(model.parameters(), lr=0.01, momentum=0.9)
     # enumerate epochs
-    for epoch in range(500):
+    for epoch in range(10):
         # enumerate mini batches
         for i, (inputs, targets) in enumerate(train_dl):
             # clear the gradients
@@ -145,32 +256,14 @@ def evaluate_model(test_dl, model):
     return acc
 
 
-# make a class prediction for one row of data
-def predict(row, model):
-    # convert row to data
-    row = Tensor([row])
-    # make prediction
-    yhat = model(row)
-    # retrieve numpy array
-    yhat = yhat.detach().numpy()
-    return yhat
-
-
 # prepare the data
-# Will want to replace path with data location
-# Then resize images into 50x50, and then flatten, and input into system
-path = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv'
+path = '~/.torch/datasets/mnist'
 train_dl, test_dl = prepare_data(path)
 print(len(train_dl.dataset), len(test_dl.dataset))
 # define the network
-#4 is the number of inputs here
-model = MLP(4)
-# train the model
+model = CNN(1)
+# # train the model
 train_model(train_dl, model)
 # evaluate the model
 acc = evaluate_model(test_dl, model)
 print('Accuracy: %.3f' % acc)
-# make a single prediction
-row = [5.1, 3.5, 1.4, 0.2]
-yhat = predict(row, model)
-print('Predicted: %s (class=%d)' % (yhat, argmax(yhat)))
