@@ -46,7 +46,7 @@ def goToPosXYZ():
     y = entry_pos_y.get()
     z = entry_pos_z.get()
     Location = [x, y, z]
-    CGMotors.goTo(Location)
+    CGMotors.goTo(Location,5)
 
 
 def goToPosX():
@@ -58,7 +58,7 @@ def goToPosY():
 
 
 def goToPosZ():
-    CGMotors.MotorGoTo(CGMotors.PORTZ, int(entry_pos_z.get()))
+    CGMotors.MotorGoTo(CGMotors.PORTZ, float(entry_pos_z.get()))
 
 
 def turnOnMagnet():

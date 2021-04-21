@@ -28,6 +28,9 @@ class Motors:
         self.StepX = 38
         self.DirectionX = 40
         self.ResetX = 36
+        self.PWMZ = 14 #dutycycle = speed
+        self.DirectionZ = 15
+        self.ResetZ = 11
 
         # Assuming X is direction in which trays open/close
 
@@ -56,6 +59,8 @@ class Motors:
         GPIO.setup(self.StepY, GPIO.OUT, initial=GPIO.LOW)  # stepX
         GPIO.setup(self.ResetY, GPIO.IN)
 
+        GPIO.setup(self.ResetZ,GPIO.IN)
+
         self.xpos = 0.0
         self.ypos = 0.0
         self.zpos = 0.0
@@ -76,6 +81,10 @@ class Motors:
 
         self.stepFrac = 1
 
+        self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+
+
+
     def set_duty_cycle(self, pwmdev, channel, dt):
         """
         @pwmdev a Device class object already configured
@@ -88,7 +97,7 @@ class Motors:
     def goTo(self, locationList,pocketNumber):
         goalx = int(locationList[0])
         goaly = int(locationList[1])
-        goalz = int(locationList[2])
+        goalz = float(locationList[2])
         #close tray
         self.MagnetOn()
         self.MotorGoTo(self.PORTY, self.DEFAULTY)
@@ -194,7 +203,36 @@ class Motors:
             else:
                 pass
         elif name == "Z":
-            print("Z Motor not enabled yet")
+            iterator = 0
+            if self.zpos < goal and goal < 100:
+                ztime = 0.0
+                while iterator<100 and self.move == True:
+                    self.set_duty_cycle(self.pca9685, self.DirectionZ, 100)
+                    self.set_duty_cycle(self.pca9685, self.PWMZ, 20)
+                    time.sleep(abs(goal)/100)
+                    if GPIO.input(self.ResetZ) == GPIO.LOW:
+                        self.ypos = 0
+                        self.move = False
+                    print(self.zpos)
+                    iterator += 1
+                self.move = True
+                self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+            elif self.zpos > goal and abs(float(goal)) < 100:
+                ztime = 0.0
+                while iterator < 100 and self.move == True:
+                    self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
+                    self.set_duty_cycle(self.pca9685, self.PWMZ, 40)
+                    time.sleep(abs(goal)/100)
+                    if GPIO.input(self.ResetZ) == GPIO.LOW:
+                        self.ypos = 0
+                        self.move = False
+                    print(self.zpos)
+                    iterator += 1
+                self.move = True
+                self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+
+            else:
+                pass
 
     def MagnetOn(self):
         print("Magnet turning on")

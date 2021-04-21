@@ -29,18 +29,18 @@ class Tray:
 
         #Adding pocket names
         pocket1.addName(1)
-        pocket1.addName(2)
-        pocket1.addName(3)
-        pocket1.addName(4)
-        pocket1.addName(5)
-        pocket1.addName(6)
-        pocket1.addName(7)
-        pocket1.addName(8)
-        pocket1.addName(9)
-        pocket1.addName(10)
-        pocket1.addName(11)
-        pocket1.addName(12)
-        pocket1.addName(13)
+        pocket2.addName(2)
+        pocket3.addName(3)
+        pocket4.addName(4)
+        pocket5.addName(5)
+        pocket6.addName(6)
+        pocket7.addName(7)
+        pocket8.addName(8)
+        pocket9.addName(9)
+        pocket10.addName(10)
+        pocket11.addName(11)
+        pocket12.addName(12)
+        pocket13.addName(13)
 
 
         #Locations will go with its parts once calculated

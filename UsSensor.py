@@ -13,7 +13,6 @@ class UsSensor:
     def USMeasure(self):
         print("Measuring Distance")
         #start timer
-        GPIO.LOW
         time0 = time.perf_counter()
         #send trigger input
         GPIO.output(self.USTrig,GPIO.HIGH)
