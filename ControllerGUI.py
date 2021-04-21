@@ -83,6 +83,7 @@ def openClaw():
     button_open_claw.configure(bg="light green")
     button_close_claw.configure(bg="red")
     button_neutral_claw.configure(bg="red")
+    
 
 
 def neutralClaw():

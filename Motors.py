@@ -99,6 +99,7 @@ class Motors:
         goaly = int(locationList[1])
         goalz = float(locationList[2])
         #close tray
+        self.closeClaw()
         self.MagnetOn()
         self.MotorGoTo(self.PORTY, self.DEFAULTY)
         self.MagnetOff()
@@ -114,8 +115,8 @@ class Motors:
         self.MotorGoTo(self.PORTX, goalx)
 
         #put part in the pocket
-        self.openClawWidth(self.CWL.getWidth(pocketNumber))
-        self.closeClaw()
+        self.openClaw()
+        
 
         #Turn of magnet between rounds to pevent overheating
         self.MagnetOff()
@@ -134,14 +135,14 @@ class Motors:
             # Circ = 47.23 mm
             # 300 steps per circumference
             # .157 mm / step
-            if self.xpos < goal and goal < 180:
+            if self.xpos < goal and goal < 225:
                 GPIO.output(self.DirectionX, GPIO.HIGH)
                 while self.xpos < goal and self.move == True:
                     GPIO.output(self.StepX, GPIO.HIGH)
                     time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepX, GPIO.LOW)
                     time.sleep(0.002/self.stepFrac)
-                    self.xpos = self.xpos + .157/self.stepFrac
+                    self.xpos = self.xpos + .192/self.stepFrac
                     #if GPIO.input(self.ResetX) == GPIO.LOW:
                         #self.xpos = 0
                         #self.move = False
@@ -155,7 +156,7 @@ class Motors:
                     time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepX, GPIO.LOW)
                     time.sleep(0.002/self.stepFrac)
-                    self.xpos = self.xpos - .157/self.stepFrac
+                    self.xpos = self.xpos - .192/self.stepFrac
                     if GPIO.input(self.ResetX) == GPIO.LOW:
                         self.xpos = 0
                         self.move = False
@@ -172,14 +173,14 @@ class Motors:
             # Circ = 47.23 mm
             # 300 steps per circumference
             # .157 mm / step
-            if self.ypos < goal and goal < 370:
+            if self.ypos < goal and goal < 380:
                 GPIO.output(self.DirectionY, GPIO.HIGH)
                 while self.ypos < goal and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
                     time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepY, GPIO.LOW)
                     time.sleep(0.002/self.stepFrac)
-                    self.ypos = self.ypos + .157/self.stepFrac
+                    self.ypos = self.ypos + .195/self.stepFrac
                     #if GPIO.input(self.ResetY) == GPIO.LOW:
                         #self.ypos = 0
                         #self.move = False
@@ -193,7 +194,7 @@ class Motors:
                     time.sleep(0.002/self.stepFrac)
                     GPIO.output(self.StepY, GPIO.LOW)
                     time.sleep(0.002/self.stepFrac)
-                    self.ypos = self.ypos - .157/self.stepFrac
+                    self.ypos = self.ypos - .195/self.stepFrac
                     if GPIO.input(self.ResetY) == GPIO.LOW:
                         self.ypos = 0
                         self.move = False
