@@ -256,7 +256,7 @@ class Motors:
 
     def closeClaw(self):
         print("Closing claw")
-        self.set_duty_cycle(self.pca9685, self.clawChannel, 9)
+        self.set_duty_cycle(self.pca9685, self.clawChannel, 12)
 
     def openClawPercent(self, percent):
         print("opening claw " + percent + " %")
