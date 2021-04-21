@@ -210,9 +210,9 @@ class Motors:
                     self.set_duty_cycle(self.pca9685, self.DirectionZ, 100)
                     self.set_duty_cycle(self.pca9685, self.PWMZ, 20)
                     time.sleep(abs(goal)/100)
-                    if GPIO.input(self.ResetZ) == GPIO.LOW:
-                        self.ypos = 0
-                        self.move = False
+                    #if GPIO.input(self.ResetZ) == GPIO.LOW:
+                        #self.ypos = 0
+                        #self.move = False
                     print(self.zpos)
                     iterator += 1
                 self.move = True
@@ -273,12 +273,14 @@ class Motors:
         done = False
         xdir = 2
         zdir = 2
+        error0 = 0
+        error1 = 0
         if self.xpos > goalx:
             xdir = -1
             GPIO.output(self.DirectionX, GPIO.LOW)
         elif self.xpos < goalx:
             xdir = 1
-            GPIO.output(self.DirectionX, GPIO.LOW)
+            GPIO.output(self.DirectionX, GPIO.HIGH)
         else:
             xdir = 0
 
@@ -292,16 +294,27 @@ class Motors:
         while done == False:
             if (self.xpos + .1 < goalx or self.xpos - .1 > goalx) and (self.xpos + 1 < goalx or self.xpos - 1 > goalx):
                 done == True
-            if  not (self.xpos + 1 < goalx or self.xpos - 1 > goalx):
+            if  not (self.xpos + .1 < goalx or self.xpos - .1 > goalx):
                 self.xpos = self.xpos + xdir * .157/self.stepFrac
                 GPIO.output(self.StepX, GPIO.HIGH)
                 time.sleep(0.002 / self.stepFrac)
                 GPIO.output(self.StepX, GPIO.LOW)
                 time.sleep(0.002 / self.stepFrac)
-            #elif (not (self.xpos + .1 < goalx or self.xpos - .1 > goalx)) :
+            if (not (self.zpos + .1 < goalz or self.zpos - .1 > goalz)) :
                 #zpos = USReading
                 #set direction pin to the correct direction
+                if self.zpos - 1 > goalz:
+                    self.set_duty_cycle(self.pca9685, self.DirectionZ, 100)
+                else:
+                    self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
+                self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
                 #Set dutycycle to value deterined by controller
+                error0 = error1
+                error1 = goalx - self.zpos
+                deltaerror = error1 - error0
+                DCContVal = kp * error1 + kd * (deltaerror)
+                self.set_duty_cycle(self.pca9685, self.PWMZ, DCContVal)
+                
 
 
 

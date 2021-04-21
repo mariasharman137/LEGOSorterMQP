@@ -129,6 +129,9 @@ def percentClaw():
 def widthClaw():
     CGMotors.openClawWidth(int(entry_claw_width.get()))
 
+def goToPosXZ():
+    CGMotors.MotorGoToXZ(float(entry_pos_x.get(), float(entry_pos_z.get())))
+
 
 window.title('Controller Gui')
 window.geometry("950x540")
@@ -164,6 +167,9 @@ entry_pos_y = tk.Entry(window, justify="center")
 # Button and entry for move to position: Z
 button_pos_z = tk.Button(window, command=goToPosZ, text="Click to go to only z position")
 entry_pos_z = tk.Entry(window, justify="center")
+
+#Button to move to position: x and z
+button_pos_xz = tk.Button(window, command=goToPosXZ, text = "Click to go to x and z simultaneously")
 
 # Title
 imageColor = tk.Label(text="Welcome to Controller GUI", width=30, height=1, font=myFont)
@@ -208,6 +214,7 @@ button_claw_width = tk.Button(window, command = widthClaw, text = "Click to make
 entry_claw_width = tk.Entry(window, justify = "center")
 
 
+
 # Locations of elements in grid:
 imageColor.grid(column=1, row=1)
 button_exit.grid(column=2, row=1)
@@ -219,7 +226,7 @@ label_shape.grid(column=1, row=3)
 entry_shape.grid(column=2, row=3)
 
 button_pos_xyz.grid(column=1, row=7)
-entry_pos_xyz.grid(column=2, row=7)
+button_pos_xz.grid(column=2, row=7)
 
 button_pos_x.grid(column=1, row=4)
 entry_pos_x.grid(column=2, row=4)
