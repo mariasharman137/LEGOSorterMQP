@@ -31,7 +31,7 @@ class Pocket:
 
     def canAddPartToPocket(self, partName):
         partName = str(partName)
-        for index, item in enumerate(self.maxParts, start=0):
+        for index, item in enumerate(self.maxParts, start=1):
             if item.partName == partName:
                 maxAmt = item.num
                 #print("Max:")
@@ -45,6 +45,7 @@ class Pocket:
                 #print(currentAmt)
                 print("Pocket #" + str(index))
                 if currentAmt + 1 <= maxAmt:
+                    print("pocket location is" + str(self.location.x) +str(self.location.y))
                     return True
                 else:
                     return False

@@ -121,7 +121,10 @@ def getUsDistance():
 
 
 def callReset():
-    CGMotors.move = False
+    CGMotors.MotorGoTo(CGMotors.PORTX, -1000)
+    CGMotors.MotorGoTo(CGMotors.PORTY, -1000)
+    CGMotors.MotorGoTo(CGMotors.PORTZ, -1000)
+
 
 
 def percentClaw():

@@ -40,12 +40,11 @@ class Motors:
         self.PORTZ = "Z"
 
         # These are locations for the robot when they trays are closed
-        self.CLOSETRAYX = 100
-        self.CLOSETRAYY = 100
+        self.CLOSETRAYY = 0
 
-        # these are locations for when the part is being dropped
-        self.DEFAULTX = 0
-        self.DEFAULTY = 0
+        # these are locations for when the part is being dropped from serializer
+        self.DEFAULTX = 100
+        self.DEFAULTY = 1000
 
         # Variable becomes false if it is reset
 
@@ -98,30 +97,58 @@ class Motors:
         goalx = int(locationList[0])
         goaly = int(locationList[1])
         goalz = float(locationList[2])
+
+        #First turn everything on
+        #make sure the claw is closed
+        #Move to pos to get part
+            #first y plus to get out of the way of the trays
+            #next x since it can now move properly
+            #z does not need to move
+        #next move to the position to place the part
+            #first move z since it is out of the way
+            #Next move x since it is away from the trays
+            #Next move y to 0 to grab the tray
+            #Now move y to the part position
+            #Place part (open claw and then sleep to let it be open for a little while)
         #close tray
+            #Close claw
+            #Move y to 0
+            #turn off magnet
+            #Move y 100
+
+        #First turn everything on
+        #make sure the claw is closed
         self.closeClaw()
-        self.MagnetOn()
-        self.MotorGoTo(self.PORTY, self.DEFAULTY)
+        time.sleep(.25)
         self.MagnetOff()
-
-        #go to position to pick up part
-        self.MotorGoTo(self.PORTX, self.DEFAULTX)
-        self.dropPart()
-
-        #Go to the part's location
-        self.MotorGoTo(self.PORTZ, goalz)
+        #Move to pos to get part
+        #first y plus to get out of the way of the trays
+        self.MotorGoTo("Y", self.DEFAULTY)
+        #next x since it can now move properly
+        self.MotorGoTo("X", self.DEFAULTX)
+        #z does not need to move
+        #next move to the position to place the part
+        #first move z since it is out of the way
+        self.MotorGoTo("Z", goalz)
+        #Next move x since it is away from the trays
+        self.MotorGoTo("X", goalx)
+        #Next move y to 0 to grab the tray
+        self.MotorGoTo("Y", self.CLOSETRAYY)
         self.MagnetOn()
-        self.MotorGoTo(self.PORTY, goaly)
-        self.MotorGoTo(self.PORTX, goalx)
-
-        #put part in the pocket
-        self.openClaw()
-        
-
-        #Turn of magnet between rounds to pevent overheating
+        #Now move y to the part position
+        self.MotorGoTo("Y", goaly)
+        #Place part (open claw and then sleep to let it be open for a little while)
+        self.neutralClaw()
+        time.sleep(.25)
+        #close tray
+        #Close claw
+        self.closeClaw()
+        #Move y to 0 (close tray)
+        self.MotorGoTo("Y", 0)
+        #turn off magnet
         self.MagnetOff()
-
-        # Robot will return to default position next time code is run
+        #Move y 100
+        self.MotorGoTo("Y", 100)
 
     def MotorGoTo(self, name, goal):
         # TODO Add low level motor stuff
@@ -250,6 +277,7 @@ class Motors:
     def openClaw(self):
         print("Opening claw")
         self.set_duty_cycle(self.pca9685, self.clawChannel, 4)
+        time.sleep(1)
 
     def neutralClaw(self):
         print("Opening claw neutral")
