@@ -41,7 +41,7 @@ class Motors:
         self.error1 = 1
         self.kp = .3
         self.kd = .01
-        self.ki = 0
+        self.ki = .05
         self.readings = 50
 
         # Assuming X is direction in which trays open/close

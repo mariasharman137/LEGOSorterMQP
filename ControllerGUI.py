@@ -123,7 +123,7 @@ def getUsDistance():
 def callReset():
     CGMotors.MotorGoTo(CGMotors.PORTX, -1000)
     CGMotors.MotorGoTo(CGMotors.PORTY, -1000)
-    CGMotors.MotorGoTo(CGMotors.PORTZ, -1000)
+    #CGMotors.MotorGoTo(CGMotors.PORTZ, -1000)
 
 
 
