@@ -13,7 +13,7 @@ class UsSensor:
         self.address = 0x48
         data = [0b10000100,0x83]
         self.bus.write_i2c_block_data(0x48, 0x01, data)
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
 
 
@@ -36,7 +36,7 @@ class UsSensor:
         if raw_adc > 32767:
 	        raw_adc -= 65535
         raw_adc = float(raw_adc)
-        d = raw_adc/8 *520 / 3270
+        d = raw_adc/8 *520 / 3270 *10 #converts to mm
         return d
 
         # b = self.bus.read_byte_data(0x48,1)

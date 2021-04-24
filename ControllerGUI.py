@@ -16,9 +16,9 @@ import time
 window = tk.Tk()
 filename = "ColorFiles/Default.png"
 resulting_color = "light grey"
-load = Image.open(filename)
-render = ImageTk.PhotoImage(load)
-gRender = ""
+#load = Image.open(filename)
+#render = ImageTk.PhotoImage(load)
+#gRender = ""
 myFont = font.Font(family='Helvetica', size=20)
 CGPDb = PartDatabase.PartDatabase()
 CGMotors = Motors.Motors()
@@ -58,7 +58,7 @@ def goToPosY():
 
 
 def goToPosZ():
-    CGMotors.MotorGoTo(CGMotors.PORTZ, float(entry_pos_z.get()))
+    CGMotors.MotorGoTo(CGMotors.PORTZ, int(entry_pos_z.get()))
 
 
 def turnOnMagnet():

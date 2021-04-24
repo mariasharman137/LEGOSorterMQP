@@ -7,6 +7,7 @@ import Jetson.GPIO as GPIO
 import time
 import math
 import clawWidthList
+import UsSensor
 #import board
 # from periphery import PWM
 from pca9685_driver import Device
@@ -17,6 +18,7 @@ class Motors:
 
         #importing needed data
         self.CWL = clawWidthList.clawWidthList()
+        self.UsSensor = UsSensor.UsSensor()
 
         # setting channel names
         self.StepY = 22
@@ -32,6 +34,14 @@ class Motors:
         self.PWMZ = 14 #,dutycycle is speed
         self.DirectionZ =15
         self.ResetZ = 11
+
+        self.dutycyclevalue = 0
+        self.deltaerror=1
+        self.error0 = 1
+        self.error1 = 1
+        self.kp = .35
+        self.kd = .35
+        self.ki = .15
 
         # Assuming X is direction in which trays open/close
 
@@ -82,6 +92,8 @@ class Motors:
         self.stepFrac = 1
 
         self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+
+        self.zerror = 1
 
 
 
@@ -232,36 +244,75 @@ class Motors:
             else:
                 pass
         elif name == "Z":
-            iterator = 0
-            if self.zpos < goal and goal < 100:
-                ztime = 0.0
-                while iterator<100 and self.move == True:
-                    self.set_duty_cycle(self.pca9685, self.DirectionZ, 100)
-                    self.set_duty_cycle(self.pca9685, self.PWMZ, 20)
-                    time.sleep(abs(goal)/100)
-                    #if GPIO.input(self.ResetZ) == GPIO.LOW:
-                        #self.ypos = 0
-                        #self.move = False
-                    print(self.zpos)
-                    iterator += 1
-                self.move = True
-                self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
-            elif self.zpos > goal and abs(float(goal)) < 100:
-                ztime = 0.0
-                while iterator < 100 and self.move == True:
-                    self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
-                    self.set_duty_cycle(self.pca9685, self.PWMZ, 40)
-                    time.sleep(abs(goal)/100)
-                    if GPIO.input(self.ResetZ) == GPIO.LOW:
-                        self.ypos = 0
-                        self.move = False
-                    print(self.zpos)
-                    iterator += 1
-                self.move = True
-                self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+            # iterator = 0
+            # self.zpos = self.UsSensor.USMeasure()
+            # if self.zpos < goal and goal < 100:
+            #     # ztime = 0.0
+            #     # while iterator<100 and self.move == True:
+            #     #     self.set_duty_cycle(self.pca9685, self.DirectionZ, 100)
+            #     #     self.set_duty_cycle(self.pca9685, self.PWMZ, 20)
+            #     #     time.sleep(abs(goal)/100)
+            #     #     #if GPIO.input(self.ResetZ) == GPIO.LOW:
+            #     #         #self.ypos = 0
+            #     #         #self.move = False
+            #     #     print(self.zpos)
+            #     #     iterator += 1
+            #     # self.move = True
+            #     # self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+            #     self.zerror = goal - self.zpos
+            #     self.error0 = 0
+            #     self.error1 = 0
+            self.zerror = 2
+            while not (self.zerror < 1 and self.zerror > -1):
+                reading = 0
+                for n in range(10):
+                    reading += self.UsSensor.USMeasure()
 
-            else:
-                pass
+                self.zpos = reading/5
+                self.zerror = goal - self.zpos
+                self.error0 = self.error1
+                self.error1 = self.zerror
+                self.deltaerror = self.error0 - self.error1
+                self.dutycyclevalue = int(self.kp * self.zerror + self.kd * self.deltaerror)
+                if self.dutycyclevalue > 0:
+                    if self.dutycyclevalue > 100:
+                        self.dutycyclevalue = 100
+                        self.set_duty_cycle(self.pca9685,self.DirectionZ,100)
+                        self.set_duty_cycle(self.pca9685, self.PWMZ, self.dutycyclevalue)
+                    else:
+                        self.set_duty_cycle(self.pca9685,self.DirectionZ,100)
+                        self.set_duty_cycle(self.pca9685, self.PWMZ, self.dutycyclevalue)
+
+                elif self.dutycyclevalue < 0:
+                    if self.dutycyclevalue < -100:
+                        self.dutycyclevalue = -100
+                        self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
+                        self.set_duty_cycle(self.pca9685, self.PWMZ, -1*self.dutycyclevalue)
+                    else:
+                        self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
+                        self.set_duty_cycle(self.pca9685, self.PWMZ, -1*self.dutycyclevalue)
+                time.sleep(.1)
+                print(str(self.zpos) + " z pos")
+                print(str(goal) + " goal")
+                print(str(self.zerror) + " z error")
+                print(str(self.dutycyclevalue) + "DCV")
+            # elif self.zpos > goal and abs(float(goal)) < 100:
+            #     ztime = 0.0
+            #     while iterator < 100 and self.move == True:
+            #         self.set_duty_cycle(self.pca9685, self.DirectionZ, 0)
+            #         self.set_duty_cycle(self.pca9685, self.PWMZ, 40)
+            #         time.sleep(abs(goal)/100)
+            #         if GPIO.input(self.ResetZ) == GPIO.LOW:
+            #             self.ypos = 0
+            #             self.move = False
+            #         print(self.zpos)
+            #         iterator += 1
+            #     self.move = True
+            #     self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
+
+            # else:
+            #     pass
+            self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
 
     def MagnetOn(self):
         print("Magnet turning on")
