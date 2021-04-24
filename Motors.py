@@ -7,7 +7,7 @@ import Jetson.GPIO as GPIO
 import time
 import math
 import clawWidthList
-import board
+#import board
 # from periphery import PWM
 from pca9685_driver import Device
 
@@ -21,16 +21,16 @@ class Motors:
         # setting channel names
         self.StepY = 22
         self.DirectionY = 19
-        self.ResetY = 21
+        self.ResetY =21
         self.clockZ = 5
         self.dataZ = 3
-        self.clawChannel = 0
-        self.emChannel = 1
+        self.clawChannel = 0 #unchanged
+        self.emChannel = 1 #unchanged
         self.StepX = 38
-        self.DirectionX = 40
-        self.ResetX = 36
-        self.PWMZ = 14 #dutycycle = speed
-        self.DirectionZ = 15
+        self.DirectionX =40
+        self.ResetX =36
+        self.PWMZ = 14 #,dutycycle is speed
+        self.DirectionZ =15
         self.ResetZ = 11
 
         # Assuming X is direction in which trays open/close
@@ -50,7 +50,7 @@ class Motors:
         # Variable becomes false if it is reset
 
         # Code to set up GPIO stuff
-        #GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.DirectionX, GPIO.OUT, initial=GPIO.LOW)  # directionX
         GPIO.setup(self.StepX, GPIO.OUT, initial=GPIO.LOW)  # stepX
         GPIO.setup(self.ResetX, GPIO.IN)

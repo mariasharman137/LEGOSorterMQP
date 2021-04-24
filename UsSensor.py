@@ -1,23 +1,44 @@
 import Jetson.GPIO as GPIO
 import time
-import busio
-import board
+
 from smbus2 import SMBus
-import adafruit_ads1x15.ads1115 as ADS
-from adafruit_ads1x15.analog_in import AnalogIn
+
 
 
 
 
 class UsSensor:
     def __init__(self):
-        self.adc = Adafruit_ADS1x15.ADS1115(address=0x48, bus = 0)
+        self.bus = SMBus(0)
+        self.address = 0x48
+        data = [0b10000100,0x83]
+        self.bus.write_i2c_block_data(0x48, 0x01, data)
+        time.sleep(0.5)
+
 
 
     def USMeasure(self):
-        for i in range(10):
-            #values[i] = adc.read_adc(i,gain=1)
-            print(adc.read_adc(i,gain=1))
+        # self.bus.write_byte_data(self.address, 0, 0b10010000)
+        # self.bus.write_byte_data(self.address, 1, 0b10000001)
+        # self.bus.write_byte_data(self.address, 2, 0b10000100)
+        # self.bus.write_byte_data(self.address, 3, 0b10000011)
+        # self.bus.write_byte_data(self.address, 0, 0b10010000)
+        # firsthalf = self.bus.read_byte_data(self.address, 1, 0b00000000)
+        # secondhalf = self.bus.read_byte_data(self.address, 2, 0b10010001)
+        # tempstr = str(firsthalf) + str(secondhalf)
+        # integerObtained = int(tempstr)
+        # return integerObtained
+        # data = [0b10000010,0x83]
+        # self.bus.write_i2c_block_data(0x48, 0x01, data)
+        # time.sleep(0.5)
+        data = self.bus.read_i2c_block_data(0x48, 0x00, 2)
+        raw_adc = data[0] * 256 + data[1]
+        if raw_adc > 32767:
+	        raw_adc -= 65535
+        return raw_adc
+
+        # b = self.bus.read_byte_data(0x48,1)
+        # return (b)
             # print("Measuring Distance")
             # #start timer
             # time0 = time.perf_counter()
