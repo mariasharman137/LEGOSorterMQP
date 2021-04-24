@@ -35,7 +35,9 @@ class UsSensor:
         raw_adc = data[0] * 256 + data[1]
         if raw_adc > 32767:
 	        raw_adc -= 65535
-        return raw_adc
+        raw_adc = float(raw_adc)
+        d = raw_adc/8 *520 / 3270
+        return d
 
         # b = self.bus.read_byte_data(0x48,1)
         # return (b)
