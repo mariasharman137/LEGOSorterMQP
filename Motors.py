@@ -42,6 +42,7 @@ class Motors:
         self.kp = .35
         self.kd = .35
         self.ki = .15
+        self.readings = 20
 
         # Assuming X is direction in which trays open/close
 
@@ -265,10 +266,10 @@ class Motors:
             self.zerror = 2
             while not (self.zerror < 1 and self.zerror > -1):
                 reading = 0
-                for n in range(10):
+                for n in range(self.readings):
                     reading += self.UsSensor.USMeasure()
 
-                self.zpos = reading/5
+                self.zpos = reading/self.readings
                 self.zerror = goal - self.zpos
                 self.error0 = self.error1
                 self.error1 = self.zerror
