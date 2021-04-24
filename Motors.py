@@ -39,10 +39,10 @@ class Motors:
         self.deltaerror=1
         self.error0 = 1
         self.error1 = 1
-        self.kp = .35
-        self.kd = .35
-        self.ki = .15
-        self.readings = 20
+        self.kp = .3
+        self.kd = .01
+        self.ki = 0
+        self.readings = 50
 
         # Assuming X is direction in which trays open/close
 
@@ -245,6 +245,7 @@ class Motors:
             else:
                 pass
         elif name == "Z":
+            self.error0=0
             # iterator = 0
             # self.zpos = self.UsSensor.USMeasure()
             # if self.zpos < goal and goal < 100:
@@ -258,20 +259,21 @@ class Motors:
             #     #         #self.move = False
             #     #     print(self.zpos)
             #     #     iterator += 1
-            #     # self.move = True
+            #     # self.mov+e = True
             #     # self.set_duty_cycle(self.pca9685, self.PWMZ, 0)
             #     self.zerror = goal - self.zpos
             #     self.error0 = 0
             #     self.error1 = 0
-            self.zerror = 2
-            while not (self.zerror < 1 and self.zerror > -1):
+            self.zerror = 20
+            while not (self.zerror < 3 and self.zerror > -3):
                 reading = 0
                 for n in range(self.readings):
                     reading += self.UsSensor.USMeasure()
+                    time.sleep(.0001)
 
                 self.zpos = reading/self.readings
                 self.zerror = goal - self.zpos
-                self.error0 = self.error1
+                self.error0 = self.error1 + self.error0
                 self.error1 = self.zerror
                 self.deltaerror = self.error0 - self.error1
                 self.dutycyclevalue = int(self.kp * self.zerror + self.kd * self.deltaerror)
