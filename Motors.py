@@ -160,7 +160,8 @@ class Motors:
         #Close claw
         self.closeClaw()
         #Move y to 0 (close tray)
-        self.MotorGoTo("Y", 0)
+        self.MotorGoTo("Y", -1000)
+        self.MotorGoTo("X", -1000)
         #turn off magnet
         self.MagnetOff()
         #Move y 100

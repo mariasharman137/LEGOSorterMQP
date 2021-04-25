@@ -52,7 +52,7 @@ class Tray:
         pocket1.addNewPartData("Light Grey 3L Pin Connector 4 Pin", 2)
         pocket1.addNewPartData("Dark Grey Liftarm L 3x5 Quarter Ellipse", 4)
         pocket1.addNewPartData("Black Pulley Tire", 4)
-        pocket1.setLocation(230,150)
+        pocket1.setLocation(180,150)
 
         # Pocket 2 Parts
         pocket2.addNewPartData("Light Grey Axle and Pin Connector Perpendicular", 20)
@@ -94,7 +94,7 @@ class Tray:
         pocket5.addNewPartData("Yellow 1x2 Trans Brick", 1)
         pocket5.addNewPartData("Light Grey 18mm Wheel", 2)
         pocket5.addNewPartData("Black 24mm Tire", 2)
-        pocket5.setLocation(200,250)
+        pocket5.setLocation(180,250)
 
         # Pocket 6 Parts
         pocket6.addNewPartData("Tan Axle and Pin", 8)
@@ -123,7 +123,7 @@ class Tray:
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x11", 2)
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x13", 2)
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x15", 4)
-        pocket10.setLocation(200,315)
+        pocket10.setLocation(180,315)
 
         # Pocket 11 Parts
         pocket11.addNewPartData("Dark Grey Liftarm Bent 6-4", 4)
