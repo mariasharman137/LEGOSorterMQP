@@ -52,7 +52,7 @@ class Tray:
         pocket1.addNewPartData("Light Grey 3L Pin Connector 4 Pin", 2)
         pocket1.addNewPartData("Dark Grey Liftarm L 3x5 Quarter Ellipse", 4)
         pocket1.addNewPartData("Black Pulley Tire", 4)
-        pocket1.setLocation(230,100)
+        pocket1.setLocation(230,150)
 
         # Pocket 2 Parts
         pocket2.addNewPartData("Light Grey Axle and Pin Connector Perpendicular", 20)
@@ -61,7 +61,7 @@ class Tray:
         pocket2.addNewPartData("Dark Grey 3L 2 Pin 1 Axle Perpendicular Connector", 4)
         pocket2.addNewPartData("Black Technic, Axle and Pin Connector Perpendicular", 8)
         pocket2.addNewPartData("Black Technic, Axle and Pin Connector 180 degrees", 2)
-        pocket2.setLocation(155,80)
+        pocket2.setLocation(110,150)
 
         # Pocket 3 Parts
         pocket3.addNewPartData("Light Grey 8T Gear", 4)
@@ -74,7 +74,7 @@ class Tray:
         pocket3.addNewPartData("Black 36T Gear", 2)
         pocket3.addNewPartData("Black Worm Screw Long", 2)
         pocket3.addNewPartData("Black Knob Wheel", 4)
-        pocket3.setLocation(80, 80)
+        pocket3.setLocation(50, 150)
 
         # Pocket 4 Parts
         pocket4.addNewPartData("Red 2L Axle",8)
@@ -86,7 +86,7 @@ class Tray:
         pocket4.addNewPartData("Dark Grey Axle 5.5 with Stop", 2)
         pocket4.addNewPartData("Light Grey 3L Axle", 14)
         pocket4.addNewPartData("Light Grey 5l Axle", 8)
-        pocket4.setLocation(200, 150)
+        pocket4.setLocation(180, 220)
 
         # Pocket 5 Parts
         pocket5.addNewPartData("Green 1x2 Trans Brick", 1)
@@ -94,26 +94,26 @@ class Tray:
         pocket5.addNewPartData("Yellow 1x2 Trans Brick", 1)
         pocket5.addNewPartData("Light Grey 18mm Wheel", 2)
         pocket5.addNewPartData("Black 24mm Tire", 2)
-        pocket5.setLocation(200,190)
+        pocket5.setLocation(200,250)
 
         # Pocket 6 Parts
         pocket6.addNewPartData("Tan Axle and Pin", 8)
         pocket6.addNewPartData("Blue Technic Axle with Pin", 10)
         pocket6.addNewPartData("Black 3L Pin with Bush" ,8)
-        pocket6.setLocation(130,135)
+        pocket6.setLocation(100,210)
 
         # Pocket 7 Parts
         pocket7.addNewPartData("Black 3L Pin", 36)
-        pocket7.setLocation(130, 185)
+        pocket7.setLocation(100, 260)
 
         # Pocket 8 Parts
         pocket8.addNewPartData("Black Technic Pin 2L", 60)
-        pocket8.setLocation(70,150)
+        pocket8.setLocation(25,210)
 
         # Pocket 9 Parts
         pocket9.addNewPartData("Yellow 1/2 Bush", 10)
         pocket9.addNewPartData("Light Grey Bush", 10)
-        pocket9.setLocation(70,190)
+        pocket9.setLocation(25,265)
 
         # Pocket 10 Parts
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x3", 10)
@@ -123,14 +123,14 @@ class Tray:
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x11", 2)
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x13", 2)
         pocket10.addNewPartData("Dark Grey Liftarm Thick 1x15", 4)
-        pocket10.setLocation(200,255)
+        pocket10.setLocation(200,315)
 
         # Pocket 11 Parts
         pocket11.addNewPartData("Dark Grey Liftarm Bent 6-4", 4)
         pocket11.addNewPartData("Dark Grey Liftarm Bent 7-4-3", 4)
         pocket11.addNewPartData("Dark Grey Liftarm L 2x4", 4)
         pocket11.addNewPartData("Dark Grey Liftawm L 3x5", 8)
-        pocket11.setLocation(80,255)
+        pocket11.setLocation(20,315)
 
         # Pocket 12 Parts
         pocket12.addNewPartData("Dark Grey 1x2 Tile", 2)
@@ -141,7 +141,7 @@ class Tray:
         pocket12.addNewPartData("Light Grey 2x4 Plate 3 Holes", 2)
         pocket12.addNewPartData("Light Grey 2x6 Plate 5 Holes", 2)
         pocket12.addNewPartData("Light Grey 2x8 Plate 7 Holes", 2)
-        pocket12.setLocation(200,340)
+        pocket12.setLocation(150,380)
 
         # Pocket 13 Parts
         pocket13.addNewPartData("Dark Grey 1x2 Brick with Axle hole", 2)
@@ -150,7 +150,7 @@ class Tray:
         pocket13.addNewPartData("Light Grey Brick 1x6 with Round Holes", 4)
         pocket13.addNewPartData("Light Grey Brick 1x8 with Round Holes", 4)
         pocket13.addNewPartData("Light Grey Brick 1x16 with Round Holes", 4)
-        pocket13.setLocation(80,340)
+        pocket13.setLocation(80,380)
 
         self.addPocket(pocket1)
         self.addPocket(pocket2)

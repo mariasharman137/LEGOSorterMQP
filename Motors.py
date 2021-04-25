@@ -41,7 +41,7 @@ class Motors:
         self.error1 = 1
         self.kp = .34
         self.kd = .01
-        self.ki = 6
+        self.ki = 10
         self.readings = 50
 
         # Assuming X is direction in which trays open/close
@@ -178,7 +178,7 @@ class Motors:
             # Circ = 47.23 mm
             # 300 steps per circumference
             # .157 mm / step
-            if self.xpos < goal and goal < 225:
+            if self.xpos < goal and goal < 201:
                 GPIO.output(self.DirectionX, GPIO.HIGH)
                 while self.xpos < goal and self.move == True:
                     GPIO.output(self.StepX, GPIO.HIGH)
@@ -216,7 +216,7 @@ class Motors:
             # Circ = 47.23 mm
             # 300 steps per circumference
             # .157 mm / step
-            if self.ypos < goal and goal < 380:
+            if self.ypos < goal and goal < 400:
                 GPIO.output(self.DirectionY, GPIO.HIGH)
                 while self.ypos < goal and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
