@@ -116,13 +116,13 @@ class Tray:
         pocket9.setLocation(70,190)
 
         # Pocket 10 Parts
-        pocket10.addNewPartData("Liftarm Thick 1x3", 10)
-        pocket10.addNewPartData("Liftarm Thick 1x5", 4)
-        pocket10.addNewPartData("Liftarm Thick 1x7", 4)
-        pocket10.addNewPartData("Liftarm Thick 1x9", 6)
-        pocket10.addNewPartData("Liftarm Thick 1x11", 2)
-        pocket10.addNewPartData("Liftarm Thick 1x13", 2)
-        pocket10.addNewPartData("Liftarm Thick 1x15", 4)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x3", 10)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x5", 4)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x7", 4)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x9", 6)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x11", 2)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x13", 2)
+        pocket10.addNewPartData("Dark Grey Liftarm Thick 1x15", 4)
         pocket10.setLocation(200,255)
 
         # Pocket 11 Parts

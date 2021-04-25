@@ -40,10 +40,11 @@ class Pocket:
                 #print(item.partName)
                 #print("Item index is:")
                 #print(index)
-                currentAmt = self.currParts[index].num
+                currentAmt = self.currParts[index-1].num
                 #print ("curr:")
                 #print(currentAmt)
                 print("Pocket #" + str(index))
+                print(str(maxAmt) + "Max Amt")
                 if currentAmt + 1 <= maxAmt:
                     print("pocket location is" + str(self.location.x) +str(self.location.y))
                     return True

@@ -26,6 +26,9 @@ CGUsSensor = UsSensor.UsSensor()
 
 # going with 5 trays as default since that is the max the robot can hold
 CGTDb = TrayDB.TrayDB(5)
+#resets the robot position between GUI launches
+CGMotors.MotorGoTo(CGMotors.PORTY, -1000)
+CGMotors.MotorGoTo(CGMotors.PORTX,-1000)
 
 
 # Gives part name if it exists, and if not, returns "Part not valid"
