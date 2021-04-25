@@ -41,7 +41,7 @@ class Motors:
         self.error1 = 1
         self.kp = .34
         self.kd = .01
-        self.ki = 10
+        self.ki = 20
         self.readings = 50
 
         # Assuming X is direction in which trays open/close
@@ -154,6 +154,8 @@ class Motors:
         #Now move y to the part position
         self.MotorGoTo("Y", goaly)
         #Place part (open claw and then sleep to let it be open for a little while)
+        self.MagnetOff()
+        time.sleep(.1)
         self.openClaw()
         time.sleep(.25)
         #close tray
@@ -221,9 +223,9 @@ class Motors:
                 GPIO.output(self.DirectionY, GPIO.HIGH)
                 while self.ypos < goal and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
-                    time.sleep(0.002/self.stepFrac)
+                    time.sleep(0.001/self.stepFrac)
                     GPIO.output(self.StepY, GPIO.LOW)
-                    time.sleep(0.002/self.stepFrac)
+                    time.sleep(0.001/self.stepFrac)
                     self.ypos = self.ypos + .195/self.stepFrac
                     #if GPIO.input(self.ResetY) == GPIO.LOW:
                         #self.ypos = 0
@@ -235,9 +237,9 @@ class Motors:
                 GPIO.output(self.DirectionY, GPIO.LOW)
                 while self.ypos > goal and self.move == True:
                     GPIO.output(self.StepY, GPIO.HIGH)
-                    time.sleep(0.002/self.stepFrac)
+                    time.sleep(0.001/self.stepFrac)
                     GPIO.output(self.StepY, GPIO.LOW)
-                    time.sleep(0.002/self.stepFrac)
+                    time.sleep(0.001/self.stepFrac)
                     self.ypos = self.ypos - .195/self.stepFrac
                     if GPIO.input(self.ResetY) == GPIO.LOW:
                         self.ypos = 0
@@ -268,7 +270,7 @@ class Motors:
             #     self.error0 = 0
             #     self.error1 = 0
             self.zerror = 20
-            while not (self.zerror < 10 and self.zerror > -10):
+            while not (self.zerror < 5 and self.zerror > -5):
                 reading = 0
                 for n in range(self.readings):
                     reading += self.UsSensor.USMeasure()
