@@ -148,11 +148,13 @@ class Motors:
         self.MotorGoTo("X", goalx)
         #Next move y to 0 to grab the tray
         self.MotorGoTo("Y", self.CLOSETRAYY)
+        time.sleep(.1)
         self.MagnetOn()
+        time.sleep(.1)
         #Now move y to the part position
         self.MotorGoTo("Y", goaly)
         #Place part (open claw and then sleep to let it be open for a little while)
-        self.neutralClaw()
+        self.openClaw()
         time.sleep(.25)
         #close tray
         #Close claw

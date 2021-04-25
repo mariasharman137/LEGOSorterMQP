@@ -52,7 +52,7 @@ class Tray:
         pocket1.addNewPartData("Light Grey 3L Pin Connector 4 Pin", 2)
         pocket1.addNewPartData("Dark Grey Liftarm L 3x5 Quarter Ellipse", 4)
         pocket1.addNewPartData("Black Pulley Tire", 4)
-        pocket1.setLocation(230,80)
+        pocket1.setLocation(230,100)
 
         # Pocket 2 Parts
         pocket2.addNewPartData("Light Grey Axle and Pin Connector Perpendicular", 20)
