@@ -34,7 +34,7 @@ class TrayDB:
         for tray in self.trays:
             tray.intializeTray()
 
-        self.setHeights(105,75)
+        self.setHeights(120,75)
 
 
 
