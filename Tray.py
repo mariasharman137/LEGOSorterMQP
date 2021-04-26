@@ -74,7 +74,7 @@ class Tray:
         pocket3.addNewPartData("Black 36T Gear", 2)
         pocket3.addNewPartData("Black Worm Screw Long", 2)
         pocket3.addNewPartData("Black Knob Wheel", 4)
-        pocket3.setLocation(50, 150)
+        pocket3.setLocation(20, 150)
 
         # Pocket 4 Parts
         pocket4.addNewPartData("Red 2L Axle",8)
